@@ -19,7 +19,7 @@ const Home = () => {
         setPokemons(localPokemons);
         return;
       }
-      console.log("fetching")
+      console.log("fetching...")
       const list = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20");
       let data = await list.json();
       const pArr = data.results.map(async (res) => {
