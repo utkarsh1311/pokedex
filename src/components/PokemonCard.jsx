@@ -7,15 +7,15 @@ const PokemonCard = ({ handleClick , pokemon }) => {
 
   // console.log('pokemon', pokemon)
   return (
-    <div className="hover:shadow-xl hover:scale-105 rounded-xl bg-white flex flex-col justify-center aspect-video relative items-center py-4 shadow-lg">
+    <div className="group duration-150 hover:shadow-xl hover:scale-105  rounded-xl bg-white flex flex-col justify-center aspect-video relative items-center py-4 shadow-lg">
       <div
         id={`${pokemon.id}`}
         onClick={handleClick}
-        className=" min-w-full min-h-full absolute z-10"></div>
+        className=" min-w-full min-h-full absolute z-10 "></div>
       <div className="">
         <img
           style={{ filter: `drop-shadow(0px 8px 2px rgb(152,152,152))` }}
-          className="absolute left-1/2 transform -translate-x-1/2 bottom-24 aspect-square max-h-16"
+          className="absolute left-1/2 transform -translate-x-1/2 bottom-24 aspect-square max-h-16 group-hover:scale-125 duration-150"
           src={
             pokemon.sprites.versions["generation-v"]["black-white"].animated
               .front_default
