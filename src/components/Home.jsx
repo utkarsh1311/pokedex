@@ -20,7 +20,7 @@ const Home = () => {
         return;
       }
       console.log("fetching...")
-      const list = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20");
+      const list = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0");
       let data = await list.json();
       const pArr = data.results.map(async (res) => {
         const a = await fetch(res.url);
@@ -28,8 +28,22 @@ const Home = () => {
       });
 
       const pokeList = await Promise.all(pArr);
-      localStorage.setItem("pokemons", JSON.stringify(pokeList));
-      setPokemons(pokeList);
+      const finalList = pokeList.map(p => {
+        return (
+          {
+            id: p.id,
+            name: p.name,
+            sprites: p.sprites,
+            types: p.types,
+            abilities: p.abilities,
+            height: p.height,
+            weight: p.weight,
+            stats: p.stats
+          }
+        )
+      })
+      localStorage.setItem("pokemons", JSON.stringify(finalList));
+      setPokemons(finalList);
     };
 
     fetchPokemon();
