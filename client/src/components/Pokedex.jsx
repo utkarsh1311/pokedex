@@ -82,7 +82,7 @@ const Pokedex = () => {
             weight: data.weight,
             stats: data.stats,
           };
-          setSelected(newPoke);
+          setSelected(prev => newPoke);
         }
       }
     }, 1000);
