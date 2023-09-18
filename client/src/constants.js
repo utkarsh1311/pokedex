@@ -91,8 +91,8 @@ export const defPokemon = {
     url: "https://pokeapi.co/api/v2/pokemon-species/1/",
   },
   sprites: {
-    official_artwork:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+    official_artwork: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+    animated: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
   },
   types: [
     {

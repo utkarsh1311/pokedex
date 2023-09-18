@@ -97,10 +97,10 @@ const Pokedex = () => {
 
   const handleNext = (e) => {
     if (e.target.id == "prev") {
-      setOffset((prev) => prev - 20);
+      setOffset((prev) => prev - 9);
       return;
     }
-    setOffset((prev) => prev + 20);
+    setOffset((prev) => prev + 9);
   };
 
   return (
