@@ -1,21 +1,21 @@
-import search from "../assets/search.png";
+import search from '../assets/search.png';
 
 const Search = ({ handleSearch }) => {
-  return (
-    <div className="relative flex items-center col-start-1 col-end-5 group">
-      <input
-        onChange={handleSearch}
-        className="w-full px-6 py-4 rounded-lg outline-none focus:outline-none font-semibold text-gray-600 group-hover:shadow-lg"
-        type="text"
-        placeholder="Search your pokemon"
-      />
-      <img
-        className=" group-hover:shadow-red-500 group-hover:shadow-lg absolute right-4 rounded-xl w-10 drop-shadow-lg"
-        src={search}
-        alt=""
-      />
-    </div>
-  );
+	return (
+		<div className="group relative col-start-1 col-end-5 flex items-center">
+			<input
+				onChange={handleSearch}
+				className="w-full rounded-lg px-6 py-4 font-semibold text-gray-600 outline-none focus:outline-none group-hover:shadow-lg"
+				type="text"
+				placeholder="Search your pokemon"
+			/>
+			<img
+				className=" absolute right-4 w-10 rounded-xl drop-shadow-lg group-hover:shadow-lg group-hover:shadow-red-500"
+				src={search}
+				alt=""
+			/>
+		</div>
+	);
 };
 
 export default Search;
