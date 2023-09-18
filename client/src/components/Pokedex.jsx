@@ -5,21 +5,16 @@ import PokemonDetail from "./PokemonDetail";
 import Search from "./Search";
 import { defPokemon } from "../constants";
 
-
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
   const [selected, setSelected] = useState(defPokemon);
   const [query, setQuery] = useState("");
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     const fetchPokemon = async () => {
-      const localPokemons = JSON.parse(localStorage.getItem("pokemons"));
-      if (localPokemons) {
-        setPokemons(localPokemons);
-        return;
-      }
       const list = await fetch(
-        "https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0"
+        `https://pokeapi.co/api/v2/pokemon/?limit=9&offset=${offset}`
       );
       let data = await list.json();
       const pArr = data.results.map(async (res) => {
@@ -33,23 +28,10 @@ const Pokedex = () => {
           id: p.id,
           name: p.name,
           sprites: {
-            other: {
-              "official-artwork": {
-                front_default:
-                  p.sprites.other["official-artwork"].front_default,
-              },
-            },
-            versions: {
-              "generation-v": {
-                "black-white": {
-                  animated: {
-                    front_default:
-                      p.sprites.versions["generation-v"]["black-white"].animated
-                        .front_default,
-                  },
-                },
-              },
-            },
+            official_artwork: p.sprites.other["official-artwork"].front_default,
+            animated:
+              p.sprites.versions["generation-v"]["black-white"].animated
+                .front_default,
           },
           types: p.types,
           abilities: p.abilities,
@@ -58,12 +40,12 @@ const Pokedex = () => {
           stats: p.stats,
         };
       });
-      localStorage.setItem("pokemons", JSON.stringify(finalList));
-      setPokemons(finalList);
+
+      setPokemons((prev) => [...finalList]);
     };
 
     fetchPokemon();
-  }, []);
+  }, [offset]);
 
   useEffect(() => {
     const searchPokemon = setTimeout(async () => {
@@ -88,23 +70,11 @@ const Pokedex = () => {
             id: data.id,
             name: data.name,
             sprites: {
-              other: {
-                "official-artwork": {
-                  front_default:
-                    data.sprites.other["official-artwork"].front_default,
-                },
-              },
-              versions: {
-                "generation-v": {
-                  "black-white": {
-                    animated: {
-                      front_default:
-                        data.sprites.versions["generation-v"]["black-white"]
-                          .animated.front_default,
-                    },
-                  },
-                },
-              },
+              official_artwork:
+                data.sprites.other["official-artwork"].front_default,
+              animated:
+                data.sprites.versions["generation-v"]["black-white"].animated
+                  .front_default,
             },
             types: data.types,
             abilities: data.abilities,
@@ -124,10 +94,23 @@ const Pokedex = () => {
     let pokemon = pokemons.find((p) => p.id === parseInt(pokemonId));
     setSelected(pokemon);
   };
+
+  const handleNext = (e) => {
+    if (e.target.id == "prev") {
+      setOffset((prev) => prev - 20);
+      return;
+    }
+    setOffset((prev) => prev + 20);
+  };
+
   return (
     <>
       <Search handleSearch={(e) => setQuery((prev) => e.target.value)} />
-      <PokemonGrid handleClick={handleClick} pokemons={pokemons} />
+      <PokemonGrid
+        handleClick={handleClick}
+        pokemons={pokemons}
+        handleNext={handleNext}
+      />
       {pokemons && <PokemonDetail pokemon={selected} />}
     </>
   );

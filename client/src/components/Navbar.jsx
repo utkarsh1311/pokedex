@@ -16,7 +16,7 @@ const Navbar = () => {
           <img src={pokedex} alt="" />
           <span className="">Pokedex</span>
         </Link>
-        <Link className="flex gap-2 items-center ">
+        <Link to={"/adopted"} className="flex gap-2 items-center ">
           <img className=" w-12" src={adopted} alt="" />
           <span>Adopted</span>
         </Link>

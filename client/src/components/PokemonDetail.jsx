@@ -6,7 +6,7 @@ const PokemonDetail = ({ pokemon }) => {
       <img
         style={{ filter: `drop-shadow(0px 8px 6px rgb(152,152,152))` }}
         className="w-3/4 absolute -top-24 left-1/2 transform -translate-x-1/2 "
-        src={pokemon.sprites.other["official-artwork"].front_default}
+        src={pokemon.sprites.official_artwork}
         alt=""
       />
       <div className="mt-40 text-center">
@@ -49,7 +49,7 @@ const PokemonDetail = ({ pokemon }) => {
             <div className="flex flex-col text-sm font-semibold text-gray-700">
               <p className="">WEIGHT</p>
               <p className="bg-gray-200 px-4 py-1 rounded-full mx-auto">
-                {pokemon.weight/10}kg
+                {pokemon.weight / 10}kg
               </p>
             </div>
           </div>
@@ -75,7 +75,9 @@ const PokemonDetail = ({ pokemon }) => {
             </div>
           </div>
           <div className="mt-2">
-            <button className="bg-blue-700 px-6 py-2 text-white rounded-lg">Adopt Me</button>
+            <button className="bg-blue-700 px-6 py-2 text-white rounded-lg">
+              Adopt Me
+            </button>
           </div>
         </div>
       </div>

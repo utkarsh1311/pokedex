@@ -17,8 +17,7 @@ const PokemonCard = ({ handleClick , pokemon }) => {
           style={{ filter: `drop-shadow(0px 8px 2px rgb(152,152,152))` }}
           className="absolute left-1/2 transform -translate-x-1/2 bottom-24 aspect-square max-h-16 group-hover:scale-125 duration-150"
           src={
-            pokemon.sprites.versions["generation-v"]["black-white"].animated
-              .front_default
+            pokemon.sprites.animated
           }
         />
       </div>
