@@ -28,11 +28,10 @@ const Pokedex = () => {
 					id: p.id,
 					name: p.name,
 					sprites: {
-						official_artwork:
-							p.sprites.other['official-artwork'].front_default,
+						official_artwork: p.sprites.other['official-artwork'].front_default,
 						animated:
-							p.sprites.versions['generation-v']['black-white']
-								.animated.front_default
+							p.sprites.versions['generation-v']['black-white'].animated
+								.front_default
 					},
 					types: p.types,
 					abilities: p.abilities,
@@ -72,12 +71,10 @@ const Pokedex = () => {
 						name: data.name,
 						sprites: {
 							official_artwork:
-								data.sprites.other['official-artwork']
-									.front_default,
+								data.sprites.other['official-artwork'].front_default,
 							animated:
-								data.sprites.versions['generation-v'][
-									'black-white'
-								].animated.front_default
+								data.sprites.versions['generation-v']['black-white'].animated
+									.front_default
 						},
 						types: data.types,
 						abilities: data.abilities,
@@ -100,6 +97,7 @@ const Pokedex = () => {
 
 	const handleNext = (e) => {
 		if (e.target.id == 'prev') {
+			if (offset === 0) return;
 			setOffset((prev) => prev - 9);
 			return;
 		}

@@ -23,8 +23,7 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 			<div className="mt-10 text-center">
 				<p className="text-xs font-bold text-gray-400">#{pokemon.id}</p>
 				<p className=" font-bold text-gray-700">
-					{pokemon.name.charAt(0).toUpperCase() +
-						pokemon.name.slice(1)}
+					{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
 				</p>
 				<div className="mt-2 flex justify-center gap-1">
 					{pokemon.types.map((t, i) => (

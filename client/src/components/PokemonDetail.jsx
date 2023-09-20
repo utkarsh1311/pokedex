@@ -14,8 +14,7 @@ const PokemonDetail = ({ pokemon }) => {
 					#{`${pokemon.id}`.padStart(3, '0')}
 				</p>
 				<p className="text-xl font-bold text-gray-800">
-					{pokemon.name.charAt(0).toUpperCase() +
-						pokemon.name.slice(1)}
+					{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
 				</p>
 				<div className="mt-2 flex justify-center gap-1">
 					{pokemon.types.map((t, i) => (
@@ -32,9 +31,7 @@ const PokemonDetail = ({ pokemon }) => {
 				</div>
 				<div className="mt-4 flex flex-col gap-4 ">
 					<div>
-						<p className="text-sm font-bold text-gray-700">
-							ABILITIES
-						</p>
+						<p className="text-sm font-bold text-gray-700">ABILITIES</p>
 						<div className="mt-2 flex justify-center gap-4">
 							{pokemon.abilities.map((a) => {
 								return (
@@ -68,9 +65,7 @@ const PokemonDetail = ({ pokemon }) => {
 										<p
 											className="rounded-full p-2 text-xs font-bold text-white"
 											style={{
-												backgroundColor: `${
-													statColor[s.stat.name].color
-												}`
+												backgroundColor: `${statColor[s.stat.name].color}`
 											}}
 										>
 											{statColor[s.stat.name].name}
