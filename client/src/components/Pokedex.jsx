@@ -4,6 +4,7 @@ import PokemonGrid from './PokemonGrid';
 import PokemonDetail from './PokemonDetail';
 import Search from './Search';
 import { defPokemon } from '../constants';
+import axios from 'axios';
 
 const Pokedex = () => {
 	const [pokemons, setPokemons] = useState([]);
@@ -12,39 +13,13 @@ const Pokedex = () => {
 	const [offset, setOffset] = useState(0);
 
 	useEffect(() => {
-		const fetchPokemon = async () => {
-			const list = await fetch(
-				`https://pokeapi.co/api/v2/pokemon/?limit=9&offset=${offset}`
-			);
-			let data = await list.json();
-			const pArr = data.results.map(async (res) => {
-				const a = await fetch(res.url);
-				return a.json();
+		const getPokemons = async () => {
+			const { data } = await axios.get('http://localhost:3000/pokemons', {
+				params: { offset }
 			});
-
-			const pokeList = await Promise.all(pArr);
-			const finalList = pokeList.map((p) => {
-				return {
-					id: p.id,
-					name: p.name,
-					sprites: {
-						official_artwork: p.sprites.other['official-artwork'].front_default,
-						animated:
-							p.sprites.versions['generation-v']['black-white'].animated
-								.front_default
-					},
-					types: p.types,
-					abilities: p.abilities,
-					height: p.height,
-					weight: p.weight,
-					stats: p.stats
-				};
-			});
-
-			setPokemons((prev) => [...finalList]);
+			setPokemons((prev) => data);
 		};
-
-		fetchPokemon();
+		getPokemons();
 	}, [offset]);
 
 	useEffect(() => {

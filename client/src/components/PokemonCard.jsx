@@ -17,7 +17,7 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 						filter: `drop-shadow(0px 8px 2px rgb(152,152,152))`
 					}}
 					className="absolute bottom-24 left-1/2 aspect-square max-h-16 -translate-x-1/2 transform duration-150 group-hover:scale-125"
-					src={pokemon.sprites.animated}
+					src={pokemon.images.animated}
 				/>
 			</div>
 			<div className="mt-10 text-center">
@@ -31,10 +31,10 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 							key={i}
 							className="rounded-md px-2 py-1 text-xs font-bold text-white"
 							style={{
-								backgroundColor: `${colors[t.type.name]} `
+								backgroundColor: `${colors[t]} `
 							}}
 						>
-							{t.type.name}
+							{t}
 						</p>
 					))}
 				</div>
