@@ -45,33 +45,11 @@ const Pokedex = () => {
 				if (searchedPokemon.length > 0) {
 					setSelected(searchedPokemon[0]);
 				} else {
-					const newPokemon = await fetch(
-						`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`
+					const newPokemon = await axios.get(
+						'http://localhost:3000/pokemons/' + query.toLowerCase()
 					);
-					if (newPokemon.status === 404) {
-						setSelected(defPokemon);
-						return;
-					}
 
-					const data = await newPokemon.json();
-
-					const newPoke = {
-						id: data.id,
-						name: data.name,
-						sprites: {
-							official_artwork:
-								data.sprites.other['official-artwork'].front_default,
-							animated:
-								data.sprites.versions['generation-v']['black-white'].animated
-									.front_default
-						},
-						types: data.types,
-						abilities: data.abilities,
-						height: data.height,
-						weight: data.weight,
-						stats: data.stats
-					};
-					setSelected((prev) => newPoke);
+					setSelected(newPokemon.data);
 				}
 			}
 		}, 1000);

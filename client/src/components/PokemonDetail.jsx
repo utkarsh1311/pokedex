@@ -1,12 +1,13 @@
 import { colors, statColor } from '../constants';
 
 const PokemonDetail = ({ pokemon }) => {
+	console.log('pokemon', pokemon)
 	return (
 		<div className="relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl">
 			<img
 				style={{ filter: `drop-shadow(0px 8px 6px rgb(152,152,152))` }}
 				className="absolute -top-24 left-1/2 w-3/4 -translate-x-1/2 transform "
-				src={pokemon.sprites.official_artwork}
+				src={pokemon.images.official}
 				alt=""
 			/>
 			<div className="mt-40 text-center">
@@ -22,10 +23,10 @@ const PokemonDetail = ({ pokemon }) => {
 							key={i}
 							className="rounded-md px-2 py-1 text-xs font-bold"
 							style={{
-								backgroundColor: `${colors[t.type.name]} `
+								backgroundColor: `${colors[t]} `
 							}}
 						>
-							{t.type.name}
+							{t}
 						</p>
 					))}
 				</div>
@@ -36,7 +37,7 @@ const PokemonDetail = ({ pokemon }) => {
 							{pokemon.abilities.map((a) => {
 								return (
 									<p className="rounded-full border border-black px-2 py-1 text-xs text-gray-600">
-										{a.ability.name}
+										{a}
 									</p>
 								);
 							})}
@@ -65,10 +66,10 @@ const PokemonDetail = ({ pokemon }) => {
 										<p
 											className="rounded-full p-2 text-xs font-bold text-white"
 											style={{
-												backgroundColor: `${statColor[s.stat.name].color}`
+												backgroundColor: `${statColor[s.name].color}`
 											}}
 										>
-											{statColor[s.stat.name].name}
+											{statColor[s.name].name}
 										</p>
 										<p className="text-xs font-semibold text-gray-600">
 											{s.base_stat}
