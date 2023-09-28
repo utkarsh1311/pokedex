@@ -27,22 +27,22 @@ const Adopted = () => {
 									filter: `drop-shadow(0px 8px 2px rgb(152,152,152))`
 								}}
 								className="aspect-square w-full duration-150 group-hover:scale-125"
-								src={pokemon.sprites.official_artwork}
+								src={pokemon.images.official}
 								alt={pokemon.name}
 							/>
 						</div>
 						<div className="flex flex-grow flex-col items-center text-center">
 							<p className="text-xl">{pokemon.name}</p>
 							<div className="mt-2 flex gap-1">
-								{pokemon.types.map((t, i) => (
+								{pokemon.types.map((type, i) => (
 									<p
 										key={i}
 										className="rounded-md px-2 py-1 text-xs font-bold text-white"
 										style={{
-											backgroundColor: `${colors[t.type.name]} `
+											backgroundColor: `${colors[type]} `
 										}}
 									>
-										{t.type.name}
+										{type}
 									</p>
 								))}
 							</div>

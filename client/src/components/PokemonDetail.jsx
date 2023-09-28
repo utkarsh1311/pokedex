@@ -1,7 +1,6 @@
 import { colors, statColor } from '../constants';
 
 const PokemonDetail = ({ pokemon }) => {
-	console.log('pokemon', pokemon)
 	return (
 		<div className="relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl">
 			<img
@@ -24,8 +23,7 @@ const PokemonDetail = ({ pokemon }) => {
 							className="rounded-md px-2 py-1 text-xs font-bold"
 							style={{
 								backgroundColor: `${colors[t]} `
-							}}
-						>
+							}}>
 							{t}
 						</p>
 					))}
@@ -67,8 +65,7 @@ const PokemonDetail = ({ pokemon }) => {
 											className="rounded-full p-2 text-xs font-bold text-white"
 											style={{
 												backgroundColor: `${statColor[s.name].color}`
-											}}
-										>
+											}}>
 											{statColor[s.name].name}
 										</p>
 										<p className="text-xs font-semibold text-gray-600">
@@ -80,7 +77,7 @@ const PokemonDetail = ({ pokemon }) => {
 						</div>
 					</div>
 					<div className="mt-2">
-						<button className="rounded-lg bg-blue-700 px-6 py-2 text-white">
+						<button className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:animate-spin hover:scale-110 hover:shadow-2xl">
 							Adopt Me
 						</button>
 					</div>
