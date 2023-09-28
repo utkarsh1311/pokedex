@@ -5,7 +5,9 @@ import { colors } from '../constants';
 const PokemonCard = ({ handleClick, pokemon }) => {
 	// console.log('pokemon', pokemon)
 	return (
-		<div className="group relative flex aspect-video  flex-col items-center justify-center rounded-xl bg-white py-4 shadow-lg duration-150 hover:scale-105 hover:shadow-xl">
+		<>
+		{pokemon ?(
+			<div className="group relative flex aspect-video  flex-col items-center justify-center rounded-xl bg-white py-4 shadow-lg duration-150 hover:scale-105 hover:shadow-xl">
 			<div
 				id={`${pokemon.id}`}
 				onClick={handleClick}
@@ -40,6 +42,12 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 				</div>
 			</div>
 		</div>
+		): (
+			<div>
+				Loading...
+			</div>
+		)}
+		</>
 	);
 };
 

@@ -10,14 +10,27 @@ const Pokedex = () => {
 	const [pokemons, setPokemons] = useState([]);
 	const [selected, setSelected] = useState(defPokemon);
 	const [query, setQuery] = useState('');
+	const [disableButtons, setDisableButtons] = useState(false);
 	const [offset, setOffset] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+		setDisableButtons(true);
+
 		const getPokemons = async () => {
-			const { data } = await axios.get('http://localhost:3000/pokemons', {
-				params: { offset }
-			});
-			setPokemons((prev) => data);
+			setLoading(true);
+			try {
+				const response = await axios.get('http://localhost:3000/pokemons', {
+					params: { offset }
+				});
+				setPokemons(response.data);
+				setLoading(false);
+				setDisableButtons(false);
+			} catch (error) {
+				console.error('Error:', error);
+			} finally {
+				setDisableButtons(false);
+			}
 		};
 		getPokemons();
 	}, [offset]);
@@ -71,6 +84,7 @@ const Pokedex = () => {
 	};
 
 	const handleNext = (e) => {
+		if (disableButtons) return;
 		if (e.target.id == 'prev') {
 			if (offset === 0) return;
 			setOffset((prev) => prev - 9);
@@ -86,6 +100,7 @@ const Pokedex = () => {
 				handleClick={handleClick}
 				pokemons={pokemons}
 				handleNext={handleNext}
+				loading={loading}
 			/>
 			{pokemons && <PokemonDetail pokemon={selected} />}
 		</>
