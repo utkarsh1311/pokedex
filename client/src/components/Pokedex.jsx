@@ -24,6 +24,7 @@ const Pokedex = () => {
 					params: { offset }
 				});
 				setPokemons(response.data);
+
 				setLoading(false);
 				setDisableButtons(false);
 			} catch (error) {

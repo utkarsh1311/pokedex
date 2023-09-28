@@ -3,10 +3,11 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
-
+ 
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
+axios.defaults.timeout = 10000;
 
 app.get("/pokemons", async (req, res, next) => {
 	const offset = req.query.offset;
@@ -14,7 +15,7 @@ app.get("/pokemons", async (req, res, next) => {
 		const pokemonData = await axios.get(
 			`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=9`
 		);
-		const pArr = pokemonData.data.results.map(async (res) => {
+		const pArr =  pokemonData.data.results.map(async (res) => {
 			const a = await axios(res.url);
 			return a.data;
 		});
@@ -43,6 +44,7 @@ app.get("/pokemons", async (req, res, next) => {
 			};
 		});
 		res.status(200).json(finalList);
+
 	} catch (error) {
 		next(error);
 	}
