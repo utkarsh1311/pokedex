@@ -29,8 +29,8 @@ const Navbar = () => {
 								to={'/'}
 								className="flex items-center gap-2 sm:mt-4">
 								<img
-									className="w-10
-									sm:hidden"
+									className="sm:hidden
+									w-10"
 									src={home}
 									alt=""
 								/>

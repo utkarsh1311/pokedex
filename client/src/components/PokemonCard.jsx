@@ -7,7 +7,7 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 	return (
 		<>
 			{pokemon ? (
-				<div className=" group relative flex aspect-video  flex-col items-center justify-center rounded-xl bg-white py-4 shadow-lg duration-150 hover:scale-105 hover:shadow-xl">
+				<div className=" group relative flex aspect-video  flex-col items-center justify-center rounded-xl bg-white py-4 shadow-lg duration-150 hover:scale-105 hover:shadow-xl md:col-span-2">
 					<div
 						id={`${pokemon.id}`}
 						onClick={handleClick}

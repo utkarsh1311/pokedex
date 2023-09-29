@@ -2,14 +2,15 @@ import { colors, statColor } from '../constants';
 
 const PokemonDetail = ({ pokemon }) => {
 	return (
-		<div className="relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl">
+		// center div with absolute position
+		<div className=" relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl sm:col-start-1 sm:col-end-9">
 			<img
 				style={{ filter: `drop-shadow(0px 8px 6px rgb(152,152,152))` }}
-				className="absolute -top-24 left-1/2 w-3/4 -translate-x-1/2 transform "
+				className="absolute -top-24 left-1/2 w-3/4 -translate-x-1/2 transform sm:relative sm:top-0"
 				src={pokemon.images.official}
 				alt=""
 			/>
-			<div className="mt-40 text-center">
+			<div className="mt-40 text-center sm:mt-0">
 				<p className="text-xs text-gray-600">
 					#{`${pokemon.id}`.padStart(3, '0')}
 				</p>
