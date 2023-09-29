@@ -19,7 +19,7 @@ const Adopted = () => {
 				{adopted.map((pokemon) => (
 					<div
 						key={pokemon.id}
-						className="flex flex-col items-center rounded-md bg-white p-4 shadow-lg"
+						className="flex flex-col items-center rounded-md bg-white p-4 shadow-lg sm:col-span-3"
 					>
 						<div className="w-1/4">
 							<img
