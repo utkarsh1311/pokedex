@@ -3,7 +3,7 @@ import pokemonGroup from '../assets/pokemonGroup.png';
 import pikachu from '../assets/pikachu.png';
 const Landing = () => {
 	return (
-		<div className="relative col-span-6 flex w-full items-center text-gray-600 md:flex-col">
+		<div className="relative col-span-6 flex w-full items-center text-gray-600 md:flex-col sm:mt-10">
 			<div className="flex flex-col gap-4">
 				<h1 className="mb-10 text-6xl font-bold md:text-5xl">Welcome, Trainer!</h1>
 				<p className="md:text-md text-lg md:text-base">

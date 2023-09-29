@@ -10,7 +10,7 @@ const Search = ({ handleSearch }) => {
 				placeholder="Search your pokemon"
 			/>
 			<img
-				className="absolute right-4 w-10 rounded-lg shadow-xl drop-shadow-xl group-hover:animate-bounce  group-hover:shadow-red-500"
+				className="absolute right-4 w-10 rounded-lg shadow-xl drop-shadow-xl group-hover:animate-bounce"
 				src={search}
 				alt=""
 			/>

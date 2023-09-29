@@ -23,13 +23,14 @@ const Navbar = () => {
 					<ul
 						className={`flex gap-10 overflow-hidden sm:flex-col sm:justify-around sm:gap-2 ${
 							toggle ? 'sm:max-h-96' : ' sm:max-h-0'
-						} transition-all duration-200 ease-linear`}>
+						} transition-all duration-500 ease-in`}>
 						<li onClick={() => setToggle(!toggle)}>
 							<Link
 								to={'/'}
 								className="flex items-center gap-2 sm:mt-4">
 								<img
-									className="w-10 sm:w-12"
+									className="w-10
+									sm:hidden"
 									src={home}
 									alt=""
 								/>
@@ -43,6 +44,7 @@ const Navbar = () => {
 								<img
 									src={pokedex}
 									alt=""
+									className="sm:hidden"
 								/>
 								<span className="">Pokedex</span>
 							</Link>
@@ -52,7 +54,7 @@ const Navbar = () => {
 								to={'/adopted'}
 								className="flex items-center gap-2 ">
 								<img
-									className=" w-12"
+									className=" w-12 sm:hidden"
 									src={adopted}
 									alt=""
 								/>
