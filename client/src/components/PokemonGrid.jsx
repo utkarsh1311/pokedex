@@ -6,7 +6,7 @@ import pokeballAnimation from '../assets/pokeball.json';
 const PokemonGrid = ({ handleNext, handleClick, pokemons, loading }) => {
 	return (
 		<>
-			<div className="  col-start-1 col-end-5 grid  grid-cols-3 items-center justify-center  gap-8 sm:col-start-1 sm:col-end-8 md:grid-cols-4">
+			<div className="sm:order-3  col-start-1 col-end-5 grid  grid-cols-3 items-center justify-center  gap-8 sm:col-start-1 sm:col-end-8 md:grid-cols-4">
 				{loading ? (
 					<div className="col-span-3 flex items-center justify-center sm:col-span-4">
 						<div className="w-1/6 sm:w-1/4 ">

@@ -3,7 +3,7 @@ import { colors, statColor } from '../constants';
 const PokemonDetail = ({ pokemon }) => {
 	return (
 		// center div with absolute position
-		<div className=" relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl sm:col-start-1 sm:col-end-9">
+		<div className="sm:order-2 relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl sm:col-start-1 sm:col-end-9">
 			<img
 				style={{ filter: `drop-shadow(0px 8px 6px rgb(152,152,152))` }}
 				className="absolute -top-24 left-1/2 w-3/4 -translate-x-1/2 transform sm:relative sm:top-0"
@@ -70,7 +70,7 @@ const PokemonDetail = ({ pokemon }) => {
 											{statColor[s.name].name}
 										</p>
 										<p className="text-xs font-semibold text-gray-600">
-											{s.base_stat}
+											{s.value}
 										</p>
 									</div>
 								);

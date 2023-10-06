@@ -3,7 +3,6 @@ import pokedex from '../assets/adopted.png';
 import { colors } from '../constants';
 
 const PokemonCard = ({ handleClick, pokemon }) => {
-	// console.log('pokemon', pokemon)
 	return (
 		<>
 			{pokemon ? (
@@ -14,11 +13,12 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 						className=" absolute z-10 min-h-full min-w-full "></div>
 					<div className="">
 						<img
-							style={{
+							style={{ 
 								filter: `drop-shadow(0px 8px 2px rgb(152,152,152))`
 							}}
 							className="absolute bottom-24 left-1/2 aspect-square max-h-16 -translate-x-1/2 transform duration-150 group-hover:scale-125"
 							src={pokemon.images.animated}
+							alt={pokemon.name}
 						/>
 					</div>
 					<div className="mt-10 text-center">

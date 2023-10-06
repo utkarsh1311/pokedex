@@ -3,6 +3,7 @@ import Home from './components/Home';
 import Pokedex from './components/Pokedex';
 import Landing from './components/Landing';
 import Adopted from './components/Adopted';
+import Login from './components/Login';
 
 const App = () => {
 	return (
@@ -10,8 +11,7 @@ const App = () => {
 			<Routes>
 				<Route
 					path="/"
-					element={<Home />}
-				>
+					element={<Home />}>
 					<Route
 						index
 						element={<Landing />}
@@ -25,6 +25,10 @@ const App = () => {
 						element={<Adopted />}
 					/>
 				</Route>
+				<Route
+					path="/login"
+					element={<Login />}
+				/>
 			</Routes>
 		</div>
 	);

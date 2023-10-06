@@ -13,7 +13,7 @@ const Home = () => {
 			/>
 			<div className="col-start-2 col-end-8 flex flex-col sm:col-start-1 sm:col-end-9">
 				<Navbar />
-				<div className=" mt-6 grid w-full flex-grow grid-cols-6 gap-6">
+				<div className=" mt-6 grid w-full flex-grow grid-cols-6 gap-6 ">  
 					<Outlet />
 				</div>
 			</div>
