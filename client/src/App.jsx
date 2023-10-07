@@ -4,6 +4,7 @@ import Pokedex from './components/Pokedex';
 import Landing from './components/Landing';
 import Adopted from './components/Adopted';
 import Login from './components/Login';
+import Register from './components/Register';
 
 const App = () => {
 	return (
@@ -28,6 +29,10 @@ const App = () => {
 				<Route
 					path="/login"
 					element={<Login />}
+				/>
+				<Route
+					path="/register"
+					element={<Register />}
 				/>
 			</Routes>
 		</div>

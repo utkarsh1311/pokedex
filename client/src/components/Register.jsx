@@ -4,7 +4,7 @@ import bg from '../assets/2.svg';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-const Login = () => {
+const Register = () => {
 	const {
 		register,
 		handleSubmit,
@@ -12,6 +12,9 @@ const Login = () => {
 	} = useForm();
 
 	const onSubmit = (data) => {
+		if (data.password !== data.confirmPassword) {
+			alert('Passwords do not match');
+		}
 		console.log(data);
 	};
 
@@ -39,8 +42,30 @@ const Login = () => {
 			</div>
 			<div className="z-10 flex w-1/3 items-center justify-center px-8 py-10 md:w-full">
 				<div className="flex flex-col rounded-xl border-2 bg-white p-10 shadow-xl ">
-					<p className=" mb-8 self-start text-4xl font-bold">Login</p>
+					<p className=" mb-8 self-start text-4xl font-bold">Register</p>
 					<form className="flex flex-col gap-8">
+						<div className="flex flex-col">
+							<label
+								className="text-lg font-semibold text-gray-700"
+								htmlFor="name">
+								Name
+							</label>
+							<input
+								{...register('name', {
+									required: 'Name is required',
+									minLength: {
+										value: 2,
+										message: 'Name must be of length 3 or above'
+									}
+								})}
+								placeholder="Enter your full name"
+								className="text-md rounded-md border-none bg-gray-200 px-4 py-2  focus:outline-none"
+								type="email"
+							/>
+							{errors.name && (
+								<p className="text-xs text-red-500">{errors.email.message}</p>
+							)}
+						</div>
 						<div className="flex flex-col">
 							<label
 								className="text-lg font-semibold text-gray-700"
@@ -73,7 +98,7 @@ const Login = () => {
 									required: true,
 									minLength: 8
 								})}
-								placeholder="Enter your password"
+								placeholder="Choose your password"
 								className="text-md rounded-md border-none bg-gray-200 px-4 py-2 focus:outline-none"
 								type="password"
 							/>
@@ -84,18 +109,39 @@ const Login = () => {
 							)}
 						</div>
 						<div className="flex flex-col">
+							<label
+								className="text-lg font-semibold text-gray-700"
+								htmlFor="password">
+								Confirm Password
+							</label>
+							<input
+								{...register('confirmPassword', {
+									required: true,
+									minLength: 8
+								})}
+								placeholder="Re-enter your password"
+								className="text-md rounded-md border-none bg-gray-200 px-4 py-2 focus:outline-none"
+								type="password"
+							/>
+							{errors.confirmPassword && (
+								<p className="text-xs text-red-500">
+									Please enter a valid password
+								</p>
+							)}
+						</div>
+						<div className="flex flex-col">
 							<button
 								onClick={handleSubmit(onSubmit)}
 								className=" w-full rounded-lg bg-blue-500 px-6 py-2 text-lg text-white"
 								type="submit">
-								Login
+								Register
 							</button>
 						</div>
 					</form>
 					<p className="mt-4 text-center text-sm text-gray-500">
-						New user? Register
+						Already have an account? Login
 						<Link
-							to="/register"
+							to="/login"
 							className="text-blue-500 hover:cursor-pointer hover:font-bold hover:text-blue-700">
 							{' '}
 							here
@@ -107,4 +153,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Register;
