@@ -5,6 +5,7 @@ import PokemonDetail from './PokemonDetail';
 import Search from './Search';
 import { defPokemon } from '../constants';
 import axios from 'axios';
+import { getAllPokemons, getPokemonById } from '../api/api';
 
 const Pokedex = () => {
 	const [pokemons, setPokemons] = useState([]);
@@ -20,10 +21,8 @@ const Pokedex = () => {
 		const getPokemons = async () => {
 			setLoading(true);
 			try {
-				const response = await axios.get('http://localhost:3000/pokemons', {
-					params: { offset }
-				});
-				setPokemons(response.data);
+				const res = await getAllPokemons(offset);
+				setPokemons(res);
 
 				setLoading(false);
 				setDisableButtons(false);
@@ -45,11 +44,8 @@ const Pokedex = () => {
 				if (searchedPokemon.length > 0) {
 					setSelected(searchedPokemon[0]);
 				} else {
-					const newPokemon = await axios.get(
-						'http://localhost:3000/pokemons/' + query.toLowerCase()
-					);
-
-					setSelected(newPokemon.data);
+					const newPokemon = await getPokemonById(query);
+					setSelected(newPokemon);
 				}
 			}
 		}, 1000);
