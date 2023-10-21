@@ -21,7 +21,7 @@ const App = () => {
 						path="/pokedex"
 						element={<Pokedex />}
 					/>
-					<Route
+					<Route 
 						path="/adopted"
 						element={<Adopted />}
 					/>
