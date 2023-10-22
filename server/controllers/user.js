@@ -4,7 +4,7 @@ const { hashPassword, createJWT, comparePasswords } = require("../utils/auth");
 const createNewUser = async (req, res) => {
   const { email, username, password } = req.body;
 
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ username });
   if (existingUser) {
     return res.status(401).json({ error: "User already exists" });
   }

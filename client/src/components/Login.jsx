@@ -24,7 +24,6 @@ const Login = () => {
 				username,
 				password
 			});
-			console.log(registerdUser);
 			setUser(registerdUser.data);
 			localStorage.setItem('user', JSON.stringify(registerdUser.data));
 			navigate('/');

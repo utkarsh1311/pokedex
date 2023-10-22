@@ -1,22 +1,40 @@
 import React from 'react';
 import pokemonGroup from '../assets/pokemonGroup.png';
 import bg from '../assets/2.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 const Register = () => {
+	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors }
 	} = useForm();
 
-	const onSubmit = (data) => {
+	const onSubmit = async (data) => {
 		if (data.password !== data.confirmPassword) {
 			alert('Passwords do not match');
+			return;
 		}
-		console.log(data);
-		alert('Registered successfully');
+
+		const { username, email, password } = data;
+		try {
+			await axios.post('http://localhost:3000/register', {
+				username,
+				email,
+				password
+			});
+
+			alert('User registered successfully');
+			navigate('/login');
+		} catch (error) {
+			alert('User already exists');
+			reset();
+		}
 	};
 
 	return (

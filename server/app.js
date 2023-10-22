@@ -29,7 +29,7 @@ axios.defaults.timeout = 10000;
 
 app.use("/api", protect, router);
 app.get("/user", getAllUsers)
-app.post("/user", createNewUser);
+app.post("/register", createNewUser);
 app.post("/login", login);
 
 module.exports = app;
