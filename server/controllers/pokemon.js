@@ -11,7 +11,6 @@ const getAllPokemons = async (req, res) => {
 			const a = await axios(res.url);
 			return a.data;
 		});
-
 		const pokeList = await Promise.all(pArr);
 		const finalList = pokeList.map((p) => formatPokemonData(p));
 		res.status(200).json(finalList);

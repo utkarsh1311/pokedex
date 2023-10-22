@@ -1,10 +1,12 @@
 import axios from 'axios';
 const BASE_URL = 'http://localhost:3000';
-const { token } = JSON.parse(localStorage.getItem('user'));
-const config = {
-	headers: { Authorization: `Bearer ${token}` }
-};
 
+const token = JSON.parse(localStorage.getItem('user'));
+const config = {
+	headers: {
+		Authorization: `Bearer ${token}`
+	}
+};
 
 export const getAllPokemons = async (offset) => {
 	const response = await axios.get(

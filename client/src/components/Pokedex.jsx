@@ -4,7 +4,6 @@ import PokemonGrid from './PokemonGrid';
 import PokemonDetail from './PokemonDetail';
 import Search from './Search';
 import { defPokemon } from '../constants';
-import axios from 'axios';
 import { getAllPokemons, getPokemonById } from '../api/api';
 
 const Pokedex = () => {

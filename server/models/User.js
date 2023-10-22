@@ -12,12 +12,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  adoptedPokemons: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Pokemon",
-    },
-  ],
+  adoptedPokemons: [],
 });
 
 userSchema.set("toJSON", {

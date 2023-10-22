@@ -1,15 +1,10 @@
 const express = require("express");
+const { adoptPokemon, unadoptPokemon } = require("../controllers/user");
 const router = express.Router();
-const User = require("../models/user");
-const Pokemon = require("../models/pokemon");
-const { default: axios } = require("axios");
 
 // POST route to adopt a Pokemon
-router.post("/adopt/:pokemonId", async (req, res) => {
-  const { username, pokemonID } = req.body;
+router.post("/adopt", adoptPokemon);
 
-  const user = await User.findOne({ username });
-  const pokemon = await axios.get("https://pokeapi.co/api/v2/pokemon/" + pokemonID);
-});
+router.delete("/adopt", unadoptPokemon);
 
 module.exports = router;
