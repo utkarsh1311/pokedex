@@ -4,40 +4,42 @@ import bg from '../assets/2.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import UserContext from '../context/userContext';
-
+import axios from 'axios';
 const Login = () => {
-	const [user, setUser] = useContext(UserContext);
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors }
+	} = useForm();
+
+	const [, setUser] = useContext(UserContext);
 	const navigate = useNavigate();
 
-	const login = (data) => {
-		const { email, password } = data;
-		if (email == 'admin@mail.com' && password == 'admin123') {
-			const user = {
-				name: 'admin',
-				email: 'admin@mail.com',
-				username: 'admin',
-				adopted: []
-			};
+	const login = async (data) => {
+		const { username, password } = data;
 
-			localStorage.setItem('user', JSON.stringify(user));
-			setUser(user);
+		try {
+			const registerdUser = await axios.post('http://localhost:3000/login', {
+				username,
+				password
+			});
+			console.log(registerdUser);
+			setUser(registerdUser.data);
+			localStorage.setItem('user', JSON.stringify(registerdUser.data));
 			navigate('/');
-		} else {
-			alert('Wrong credentials');
+		} catch (error) {
+			alert("Username or password doesn't match");
+			reset();
 		}
 	};
 
 	useEffect(() => {
-		const user = JSON.parse(localStorage.getItem('user'));
-		if (user) {
+		const exisitingUser = JSON.parse(localStorage.getItem('user'));
+		if (exisitingUser) {
 			navigate('/');
 		}
 	}, []);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors }
-	} = useForm();
 
 	return (
 		<div className="relative flex h-screen  justify-center overflow-hidden bg-gray-100 p-10 font-inter text-gray-600 md:flex-col">
@@ -68,21 +70,20 @@ const Login = () => {
 						<div className="flex flex-col">
 							<label
 								className="text-lg font-semibold text-gray-700"
-								htmlFor="email">
-								Email
+								htmlFor="username">
+								Username
 							</label>
 							<input
-								{...register('email', {
-									required: true,
-									pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+								{...register('username', {
+									required: true
 								})}
-								placeholder="Enter your mail"
+								placeholder="Enter your username"
 								className="text-md rounded-md border-none bg-gray-200 px-4 py-2  focus:outline-none"
-								type="email"
+								type="text"
 							/>
-							{errors.email && (
+							{errors.username && (
 								<p className="text-xs text-red-500">
-									Please enter a valid email
+									Please enter a valid username
 								</p>
 							)}
 						</div>

@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("./config");
+const bcrypt = require("bcrypt");
 
 const createJWT = (user) => {
   const token = jwt.sign(
@@ -17,7 +18,7 @@ const protect = (req, res, next) => {
     return res.status(401).json({ message: "no token provided" });
   }
 
-  const [, token] = bearer.split(" "); 
+  const [, token] = bearer.split(" ");
 
   if (!token) {
     return res.status(401).json({ message: "no token provided" });
@@ -28,11 +29,22 @@ const protect = (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json({ message: "not valid token" });
   }
+};
+
+const comparePasswords = (password, hash) => {
+  return bcrypt.compare(password, hash);
+};
+
+const hashPassword = (password) => {
+  return bcrypt.hash(password, 10);
 };
 
 module.exports = {
   createJWT,
   protect,
+  comparePasswords,
+  hashPassword,
 };

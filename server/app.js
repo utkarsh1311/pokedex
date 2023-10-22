@@ -7,6 +7,7 @@ const cors = require("cors");
 const router = require("./routes/routes");
 const mongoose = require("mongoose");
 const { protect } = require("./utils/auth");
+const { createNewUser, login, getAllUsers } = require("./controllers/user");
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
@@ -26,7 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 axios.defaults.timeout = 10000;
 
-app.use("/", protect, router);
+app.use("/api", protect, router);
+app.get("/user", getAllUsers)
+app.post("/user", createNewUser);
+app.post("/login", login);
 
 module.exports = app;
- 

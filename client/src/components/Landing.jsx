@@ -10,7 +10,7 @@ const Landing = () => {
 		<div className="relative col-span-6 flex w-full items-center text-gray-600 md:flex-col sm:mt-10">
 			<div className="flex flex-col gap-4">
 				<h1 className="mb-10 text-6xl font-bold md:text-5xl">
-					Welcome, <br /> {user?.name}
+					Welcome, <br /> {user?.username}
 				</h1>
 				<p className="md:text-md text-lg md:text-base">
 					{/* write some text for user when they log in to the pokemon adoption agency app  */}

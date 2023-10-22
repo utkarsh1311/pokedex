@@ -16,6 +16,7 @@ const Register = () => {
 			alert('Passwords do not match');
 		}
 		console.log(data);
+		alert('Registered successfully');
 	};
 
 	return (
@@ -47,23 +48,25 @@ const Register = () => {
 						<div className="flex flex-col">
 							<label
 								className="text-lg font-semibold text-gray-700"
-								htmlFor="name">
-								Name
+								htmlFor="username">
+								Username
 							</label>
 							<input
-								{...register('name', {
-									required: 'Name is required',
+								{...register('username', {
+									required: 'Username is required',
 									minLength: {
 										value: 2,
-										message: 'Name must be of length 3 or above'
+										message: 'Username must be of length 3 or above'
 									}
 								})}
-								placeholder="Enter your full name"
+								placeholder="Enter your username"
 								className="text-md rounded-md border-none bg-gray-200 px-4 py-2  focus:outline-none"
 								type="email"
 							/>
-							{errors.name && (
-								<p className="text-xs text-red-500">{errors.email.message}</p>
+							{errors.username && (
+								<p className="text-xs text-red-500">
+									{errors.username.message}
+								</p>
 							)}
 						</div>
 						<div className="flex flex-col">
