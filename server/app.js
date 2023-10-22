@@ -4,7 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
-const router = require("./routes/routes");
+const pokemonRouter = require("./routes/pokemonRouter");
 const mongoose = require("mongoose");
 const { protect } = require("./utils/auth");
 const { createNewUser, login, getAllUsers } = require("./controllers/user");
@@ -27,8 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 axios.defaults.timeout = 10000;
 
-app.use("/api", protect, router);
-app.get("/user", getAllUsers)
+app.use("/pokemon", protect, pokemonRouter);
+app.get("/user", )
 app.post("/register", createNewUser);
 app.post("/login", login);
 
