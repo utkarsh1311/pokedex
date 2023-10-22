@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import pokemonGroup from '../assets/pokemonGroup.png';
 import pikachu from '../assets/pikachu.png';
+import UserContext from '../context/userContext';
+import { useOutletContext } from 'react-router-dom';
 const Landing = () => {
+	
+	const [user] = useContext(UserContext);
 	return (
 		<div className="relative col-span-6 flex w-full items-center text-gray-600 md:flex-col sm:mt-10">
 			<div className="flex flex-col gap-4">
-				<h1 className="mb-10 text-6xl font-bold md:text-5xl">Welcome, Trainer!</h1>
+				<h1 className="mb-10 text-6xl font-bold md:text-5xl">
+					Welcome, <br /> {user?.name}
+				</h1>
 				<p className="md:text-md text-lg md:text-base">
 					{/* write some text for user when they log in to the pokemon adoption agency app  */}
 					Welcome to the Pokemon Adoption Agency! Here you can adopt your very

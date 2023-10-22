@@ -1,19 +1,43 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import pokemonGroup from '../assets/pokemonGroup.png';
 import bg from '../assets/2.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import UserContext from '../context/userContext';
 
 const Login = () => {
+	const [user, setUser] = useContext(UserContext);
+	const navigate = useNavigate();
+
+	const login = (data) => {
+		const { email, password } = data;
+		if (email == 'admin@mail.com' && password == 'admin123') {
+			const user = {
+				name: 'admin',
+				email: 'admin@mail.com',
+				username: 'admin',
+				adopted: []
+			};
+
+			localStorage.setItem('user', JSON.stringify(user));
+			setUser(user);
+			navigate('/');
+		} else {
+			alert('Wrong credentials');
+		}
+	};
+
+	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem('user'));
+		if (user) {
+			navigate('/');
+		}
+	}, []);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors }
 	} = useForm();
-
-	const onSubmit = (data) => {
-		console.log(data);
-	};
 
 	return (
 		<div className="relative flex h-screen  justify-center overflow-hidden bg-gray-100 p-10 font-inter text-gray-600 md:flex-col">
@@ -85,7 +109,7 @@ const Login = () => {
 						</div>
 						<div className="flex flex-col">
 							<button
-								onClick={handleSubmit(onSubmit)}
+								onClick={handleSubmit(login)}
 								className=" w-full rounded-lg bg-blue-500 px-6 py-2 text-lg text-white"
 								type="submit">
 								Login

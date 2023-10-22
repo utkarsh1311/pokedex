@@ -5,36 +5,42 @@ import Landing from './components/Landing';
 import Adopted from './components/Adopted';
 import Login from './components/Login';
 import Register from './components/Register';
+import UserContext from './context/userContext';
+import { useEffect, useState } from 'react';
 
 const App = () => {
+	const [user, setUser] = useState(null);
+
 	return (
 		<div className="h-full">
-			<Routes>
-				<Route
-					path="/"
-					element={<Home />}>
+			<UserContext.Provider value={[user, setUser]}>
+				<Routes>
 					<Route
-						index
-						element={<Landing />}
+						path="/"
+						element={<Home />}>
+						<Route
+							index
+							element={<Landing />}
+						/>
+						<Route
+							path="/pokedex"
+							element={<Pokedex />}
+						/>
+						<Route
+							path="/adopted"
+							element={<Adopted />}
+						/>
+					</Route>
+					<Route
+						path="/login"
+						element={<Login />}
 					/>
 					<Route
-						path="/pokedex"
-						element={<Pokedex />}
+						path="/register"
+						element={<Register />}
 					/>
-					<Route 
-						path="/adopted"
-						element={<Adopted />}
-					/>
-				</Route>
-				<Route
-					path="/login"
-					element={<Login />}
-				/>
-				<Route
-					path="/register"
-					element={<Register />}
-				/>
-			</Routes>
+				</Routes>
+			</UserContext.Provider>
 		</div>
 	);
 };
