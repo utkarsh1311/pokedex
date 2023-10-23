@@ -49,7 +49,6 @@ const login = async (req, res) => {
     username: user.username,
     id: user._id,
     email: user.email,
-    adoptedPokemons: user.adoptedPokemons,
   });
 };
 
@@ -110,6 +109,23 @@ const unadoptPokemon = async (req, res) => {
   }
 };
 
+const getAllAdoptedPokemons = async (req, res) => {
+  const { username } = req.user;
+  if (!username) {
+    return res.status(401).json({ error: "username not provided" });
+  }
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ error: "not authorized" });
+    }
+    const adoptedPokemons = user.adoptedPokemons;
+    res.status(200).json({ adoptedPokemons });
+  } catch (e) {
+    res.status(500).json({ error: "error getting adopted pokemons" });
+  }
+};
+
 const getAllUsers = async (req, res) => {
   const users = await User.find({}).populate("adoptedPokemons");
   res.json(users);
@@ -121,4 +137,5 @@ module.exports = {
   getAllUsers,
   adoptPokemon,
   unadoptPokemon,
+  getAllAdoptedPokemons,
 };

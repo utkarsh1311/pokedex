@@ -1,7 +1,7 @@
 import axios from 'axios';
 const BASE_URL = 'http://localhost:3000';
 
-const token = JSON.parse(localStorage.getItem('user'));
+const { token } = JSON.parse(localStorage.getItem('user'));
 const config = {
 	headers: {
 		Authorization: `Bearer ${token}`
@@ -20,4 +20,9 @@ export const getPokemonById = async (name) => {
 	const response = await axios.get(`${BASE_URL}/pokemons/${name}`, config);
 	console.log('response', response);
 	return response.data;
+};
+
+export const getAllAdoptedPokemons = async () => {
+	const res = await axios.get(`${BASE_URL}/user/adopt`, config);
+	return res.data.adoptedPokemons;
 };

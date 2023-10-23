@@ -11,6 +11,15 @@ import { useEffect, useState } from 'react';
 const App = () => {
 	const [user, setUser] = useState(null);
 
+	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem('user'));
+		if (!user) {
+			navigate('/login');
+		} else {
+			setUser(user);
+		}
+	}, []);
+
 	return (
 		<div className="h-full">
 			<UserContext.Provider value={[user, setUser]}>

@@ -3,7 +3,7 @@ import { colors, statColor } from '../constants';
 const PokemonDetail = ({ pokemon }) => {
 	return (
 		// center div with absolute position
-		<div className="sm:order-2 relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl sm:col-start-1 sm:col-end-9">
+		<div className="relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl sm:order-2 sm:col-start-1 sm:col-end-9">
 			<img
 				style={{ filter: `drop-shadow(0px 8px 6px rgb(152,152,152))` }}
 				className="absolute -top-24 left-1/2 w-3/4 -translate-x-1/2 transform sm:relative sm:top-0"
@@ -33,9 +33,11 @@ const PokemonDetail = ({ pokemon }) => {
 					<div>
 						<p className="text-sm font-bold text-gray-700">ABILITIES</p>
 						<div className="mt-2 flex justify-center gap-4">
-							{pokemon.abilities.map((a) => {
+							{pokemon.abilities.map((a, i) => {
 								return (
-									<p className="rounded-full border border-black px-2 py-1 text-xs text-gray-600">
+									<p
+										key={i}
+										className="rounded-full border border-black px-2 py-1 text-xs text-gray-600">
 										{a}
 									</p>
 								);
@@ -61,7 +63,7 @@ const PokemonDetail = ({ pokemon }) => {
 						<div className="mt-2 flex flex-wrap justify-around px-4">
 							{pokemon.stats.map((s) => {
 								return (
-									<div className="flex flex-col justify-center gap-2 rounded-xl bg-gray-100">
+									<div key={s.name} className="flex flex-col justify-center gap-2 rounded-xl bg-gray-100">
 										<p
 											className="rounded-full p-2 text-xs font-bold text-white"
 											style={{
@@ -78,7 +80,7 @@ const PokemonDetail = ({ pokemon }) => {
 						</div>
 					</div>
 					<div className="mt-2">
-						<button className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:animate-spin hover:scale-110 hover:shadow-2xl">
+						<button className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:scale-110 hover:animate-spin hover:shadow-2xl">
 							Adopt Me
 						</button>
 					</div>
