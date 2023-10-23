@@ -18,7 +18,6 @@ export const getAllPokemons = async (offset) => {
 
 export const getPokemonById = async (name) => {
 	const response = await axios.get(`${BASE_URL}/pokemons/${name}`, config);
-	console.log('response', response);
 	return response.data;
 };
 

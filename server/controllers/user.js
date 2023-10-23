@@ -6,22 +6,24 @@ const { formatPokemonData } = require("../utils/helper");
 
 const createNewUser = async (req, res) => {
   const { email, username, password } = req.body;
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(401).json({ error: "User already exists" });
+    }
+    const user = new User({
+      username,
+      email,
+      passwordHash: await hashPassword(password),
+      adoptedPokemons: [],
+    });
 
-  const existingUser = await User.findOne({ username });
-  if (existingUser) {
-    return res.status(401).json({ error: "User already exists" });
+    const savedUser = await user.save();
+    const token = createJWT(savedUser);
+    res.status(201).json({ token });
+  } catch (error) {
+    res.status(500).json({ error: "error creating user" });
   }
-  const user = new User({
-    username,
-    email,
-    passwordHash: await hashPassword(password),
-    adoptedPokemons: [],
-  });
-
-  const savedUser = await user.save();
-  console.log(savedUser);
-  const token = createJWT(savedUser);
-  res.status(201).json({ token });
 };
 
 const login = async (req, res) => {
@@ -31,29 +33,36 @@ const login = async (req, res) => {
     return res.status(400).json({ error: "username and password required" });
   }
 
-  const user = await User.findOne({ username });
-  const passwordIsCorrect =
-    user === null ? false : await comparePasswords(password, user.passwordHash);
-  if (!(user && passwordIsCorrect)) {
-    return res.status(401).json({ error: "invalid username or password" });
+  try {
+    const user = await User.findOne({ username });
+    const passwordIsCorrect =
+      user === null
+        ? false
+        : await comparePasswords(password, user.passwordHash);
+    if (!(user && passwordIsCorrect)) {
+      return res.status(401).json({ error: "invalid username or password" });
+    }
+
+    const userForToken = {
+      username: user.username,
+      id: user._id,
+    };
+
+    const token = createJWT(userForToken);
+    res.status(200).json({
+      token,
+      username: user.username,
+      id: user._id,
+      email: user.email,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "error logging in" });
   }
-
-  const userForToken = {
-    username: user.username,
-    id: user._id,
-  };
-
-  const token = createJWT(userForToken);
-  res.status(200).json({
-    token,
-    username: user.username,
-    id: user._id,
-    email: user.email,
-  });
 };
 
 const adoptPokemon = async (req, res) => {
-  const { username, pokemonID } = req.body;
+  const { username } = req.user;
+  const { pokemonID } = req.body;
 
   try {
     const user = await User.findOne({ username });
@@ -83,7 +92,8 @@ const adoptPokemon = async (req, res) => {
 };
 
 const unadoptPokemon = async (req, res) => {
-  const { username, pokemonID } = req.body;
+  const { username } = req.user;
+  const { pokemonID } = req.body;
 
   try {
     const user = await User.findOne({ username });
@@ -127,7 +137,7 @@ const getAllAdoptedPokemons = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  const users = await User.find({}).populate("adoptedPokemons");
+  const users = await User.find({});
   res.json(users);
 };
 
