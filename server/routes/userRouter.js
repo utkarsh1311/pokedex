@@ -4,12 +4,14 @@ const {
   unadoptPokemon,
   getAllAdoptedPokemons,
 } = require("../controllers/user");
+
+
 const router = express.Router();
 
-router.get("/adopt", getAllAdoptedPokemons);
+router.get("/pokemons", getAllAdoptedPokemons);
 // POST route to adopt a Pokemon
-router.post("/adopt", adoptPokemon);
+router.post("/pokemons", adoptPokemon);
 
-router.delete("/adopt", unadoptPokemon);
+router.delete("/pokemons", unadoptPokemon);
 
 module.exports = router;

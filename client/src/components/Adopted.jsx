@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { getAllAdoptedPokemons } from '../api/api';
+import { getAllAdoptedPokemons, unadoptPokemon } from '../api/api';
+import snorlax from '../assets/snorlax.png';
 import { colors } from '../constants';
 import UserContext from '../context/userContext';
+import { toast } from 'react-toastify';
 const Adopted = () => {
 	const [user] = useContext(UserContext);
 
@@ -16,11 +18,25 @@ const Adopted = () => {
 		getAdoptedPokemons();
 	}, []);
 
+	const handleUnadoption = async (e) => {
+		const pokemonId = e.target.id;
+		try {
+			const res = await unadoptPokemon(pokemonId);
+			toast.success(res.message);
+			const newAdoptedPokemons = adoptedPokemons.filter(
+				(pokemon) => pokemon.id !== +pokemonId
+			);
+			setAdoptedPokemons((prev) => [...newAdoptedPokemons]);
+		} catch (e) {
+			console.log(e);
+			toast.error(e.response.data.error);
+		}
+	};
 	return (
 		<div className="relative col-span-6 text-gray-600">
 			<h2 className="text-4xl font-bold">Here are your pokemons...</h2>
 			<div className="mt-6 grid grid-cols-3 gap-8">
-				{adoptedPokemons ? (
+				{adoptedPokemons.length > 0 ? (
 					adoptedPokemons.map((pokemon) => (
 						<div
 							key={pokemon.id}
@@ -59,7 +75,10 @@ const Adopted = () => {
 									<button className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110">
 										Feed Me
 									</button>
-									<button className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110">
+									<button
+										id={pokemon.id}
+										onClick={handleUnadoption}
+										className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110">
 										Unadopt me
 									</button>
 								</div>
@@ -67,7 +86,14 @@ const Adopted = () => {
 						</div>
 					))
 				) : (
-					<p>You have no adopted pokemons</p>
+					<div className="col-span-3 grid h-full place-content-center ">
+						<img
+							className="w-1/2 mx-auto drop-shadow-xl"
+							src={snorlax}
+							alt="snorlax"
+						/>
+						<p className='text-center  text-3xl mt-8'>You have not adopted any pokemons. 😢😢</p>
+					</div>
 				)}
 			</div>
 		</div>

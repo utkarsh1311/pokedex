@@ -13,6 +13,7 @@ const createJWT = (user) => {
 
 const protect = (req, res, next) => {
   const bearer = req.headers.authorization;
+  console.log("here")
 
   if (!bearer || !bearer.startsWith("Bearer ")) {
     return res.status(401).json({ message: "no token provided" });

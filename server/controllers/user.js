@@ -103,7 +103,7 @@ const unadoptPokemon = async (req, res) => {
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(401).json({ error: "not authorized" });
+      return res.status(404).json({ error: "not authorized" });
     }
 
     if (!pokemonID) {

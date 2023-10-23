@@ -22,15 +22,23 @@ export const getPokemonById = async (name) => {
 };
 
 export const getAllAdoptedPokemons = async () => {
-	const res = await axios.get(`${BASE_URL}/user/adopt`, config);
+	const res = await axios.get(`${BASE_URL}/user/pokemons`, config);
 	return res.data.adoptedPokemons;
 };
 
 export const adoptPokemon = async (id) => {
 	const res = await axios.post(
-		`${BASE_URL}/user/adopt`,
+		`${BASE_URL}/user/pokemons`,
 		{ pokemonID: id },
 		config
 	);
+	return res.data;
+};
+
+export const unadoptPokemon = async (id) => {
+	const res = await axios.delete(`${BASE_URL}/user/pokemons`, {
+		data: { pokemonID: id },
+		...config
+	});
 	return res.data;
 };
