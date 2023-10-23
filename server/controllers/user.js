@@ -72,9 +72,9 @@ const adoptPokemon = async (req, res) => {
     }
 
     if (user.adoptedPokemons.length >= 9) {
-      return res.status(400).json({ error: "max 9 pokemons allowed" });
+      return res.status(400).json({ error: "max adoption limit reached" });
     }
-    
+
     const fetchPokemon = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${pokemonID}`
     );

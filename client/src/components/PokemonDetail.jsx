@@ -1,13 +1,14 @@
-import { colors, statColor } from '../constants';
+import { toast } from 'react-toastify';
 import { adoptPokemon } from '../api/api';
+import { colors, statColor } from '../constants';
 
 const PokemonDetail = ({ pokemon }) => {
 	const handleAdoption = async () => {
 		try {
 			const res = await adoptPokemon(pokemon.id);
-			alert(res.message);
+			toast.success(res.message);
 		} catch (e) {
-			alert(e.message);
+			toast.error(e.response.data.error);
 		}
 	};
 	return (

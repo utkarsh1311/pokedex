@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import UserContext from '../context/userContext';
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
+import Toast from './Toast';
 
 const Login = () => {
 	const {
@@ -30,7 +31,7 @@ const Login = () => {
 			localStorage.setItem('user', JSON.stringify(registerdUser.data));
 			navigate('/');
 		} catch (error) {
-			alert("Username or password doesn't match");
+			toast.error("Username or password doesn't match");
 			reset();
 		}
 	};
@@ -44,6 +45,7 @@ const Login = () => {
 
 	return (
 		<div className="relative flex h-screen  justify-center overflow-hidden bg-gray-100 p-10 font-inter text-gray-600 md:flex-col">
+			<Toast />
 			<img
 				src={bg}
 				width={500}

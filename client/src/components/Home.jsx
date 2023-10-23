@@ -6,6 +6,7 @@ import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/userContext';
+import Toast from './Toast';
 
 const Home = () => {
 	const [user] = useContext(UserContext);
@@ -19,6 +20,8 @@ const Home = () => {
 
 	return (
 		<div className="max-w-screen grid h-full grid-cols-8 bg-gray-100 p-6 font-inter">
+			<Toast />
+
 			<img
 				className="absolute -left-20 -top-10 z-0 w-1/4 md:w-1/2 sm:w-3/4"
 				src={bg}

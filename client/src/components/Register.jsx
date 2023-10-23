@@ -4,6 +4,8 @@ import bg from '../assets/2.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import Toast from './Toast';
+import { toast } from 'react-toastify';
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -17,7 +19,7 @@ const Register = () => {
 
 	const onSubmit = async (data) => {
 		if (data.password !== data.confirmPassword) {
-			alert('Passwords do not match');
+			toast.warning('Passwords do not match');
 			return;
 		}
 
@@ -29,16 +31,17 @@ const Register = () => {
 				password
 			});
 
-			alert('User registered successfully');
+			toast.success('User registered successfully');
 			navigate('/login');
-		} catch (error) {
-			alert('User already exists');
+		} catch (e) {
+			toast.warning(e.response.data.error);
 			reset();
 		}
 	};
 
 	return (
 		<div className="relative flex h-screen  justify-center overflow-hidden bg-gray-100 p-10 font-inter text-gray-600 md:flex-col">
+			<Toast />
 			<img
 				src={bg}
 				width={500}
