@@ -25,3 +25,12 @@ export const getAllAdoptedPokemons = async () => {
 	const res = await axios.get(`${BASE_URL}/user/adopt`, config);
 	return res.data.adoptedPokemons;
 };
+
+export const adoptPokemon = async (id) => {
+	const res = await axios.post(
+		`${BASE_URL}/user/adopt`,
+		{ pokemonID: id },
+		config
+	);
+	return res.data;
+};

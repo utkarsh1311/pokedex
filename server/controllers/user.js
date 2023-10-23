@@ -70,6 +70,11 @@ const adoptPokemon = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "not authorized " });
     }
+
+    if (user.adoptedPokemons.length >= 9) {
+      return res.status(400).json({ error: "max 9 pokemons allowed" });
+    }
+    
     const fetchPokemon = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${pokemonID}`
     );

@@ -1,6 +1,15 @@
 import { colors, statColor } from '../constants';
+import { adoptPokemon } from '../api/api';
 
 const PokemonDetail = ({ pokemon }) => {
+	const handleAdoption = async () => {
+		try {
+			const res = await adoptPokemon(pokemon.id);
+			alert(res.message);
+		} catch (e) {
+			alert(e.message);
+		}
+	};
 	return (
 		// center div with absolute position
 		<div className="relative col-start-5 col-end-7 flex h-fit flex-col gap-4 rounded-xl bg-white pb-8 drop-shadow-xl sm:order-2 sm:col-start-1 sm:col-end-9">
@@ -63,7 +72,9 @@ const PokemonDetail = ({ pokemon }) => {
 						<div className="mt-2 flex flex-wrap justify-around px-4">
 							{pokemon.stats.map((s) => {
 								return (
-									<div key={s.name} className="flex flex-col justify-center gap-2 rounded-xl bg-gray-100">
+									<div
+										key={s.name}
+										className="flex flex-col justify-center gap-2 rounded-xl bg-gray-100">
 										<p
 											className="rounded-full p-2 text-xs font-bold text-white"
 											style={{
@@ -80,7 +91,9 @@ const PokemonDetail = ({ pokemon }) => {
 						</div>
 					</div>
 					<div className="mt-2">
-						<button className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:scale-110 hover:animate-spin hover:shadow-2xl">
+						<button
+							onClick={handleAdoption}
+							className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:scale-110 hover:animate-spin hover:shadow-2xl">
 							Adopt Me
 						</button>
 					</div>
