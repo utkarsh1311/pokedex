@@ -6,7 +6,7 @@ import pokeballAnimation from '../assets/pokeball.json';
 const PokemonGrid = ({ handleNext, handleClick, pokemons, loading }) => {
 	return (
 		<>
-			<div className="sm:order-3  col-start-1 col-end-5 grid  grid-cols-3 items-center justify-center  gap-8 sm:col-start-1 sm:col-end-8 md:grid-cols-4">
+			<div className="col-start-1  col-end-5 grid grid-cols-3  items-center justify-center gap-8  md:grid-cols-4 sm:order-3 sm:col-start-1 sm:col-end-8">
 				{loading ? (
 					<div className="col-span-3 flex items-center justify-center sm:col-span-4">
 						<div className="w-1/6 sm:w-1/4 ">
@@ -29,13 +29,15 @@ const PokemonGrid = ({ handleNext, handleClick, pokemons, loading }) => {
 					<button
 						id="prev"
 						onClick={handleNext}
-						className=" w-fit rounded-lg bg-blue-700 px-4 py-2  text-white transition-all duration-150 hover:scale-110 hover:bg-blue-900">
+						className=" w-fit rounded-lg bg-blue-700 px-4 py-2  text-white transition-all duration-150 hover:scale-110 hover:bg-blue-900"
+					>
 						🡸 Prev
 					</button>
 					<button
 						id="next"
 						onClick={handleNext}
-						className=" w-fit rounded-lg bg-blue-700 px-4 py-2  text-white transition-all duration-150 hover:scale-110 hover:bg-blue-900">
+						className=" w-fit rounded-lg bg-blue-700 px-4 py-2  text-white transition-all duration-150 hover:scale-110 hover:bg-blue-900"
+					>
 						Next 🡺
 					</button>
 				</div>

@@ -34,7 +34,8 @@ const PokemonDetail = ({ pokemon }) => {
 							className="rounded-md px-2 py-1 text-xs font-bold"
 							style={{
 								backgroundColor: `${colors[t]} `
-							}}>
+							}}
+						>
 							{t}
 						</p>
 					))}
@@ -47,7 +48,8 @@ const PokemonDetail = ({ pokemon }) => {
 								return (
 									<p
 										key={i}
-										className="rounded-full border border-black px-2 py-1 text-xs text-gray-600">
+										className="rounded-full border border-black px-2 py-1 text-xs text-gray-600"
+									>
 										{a}
 									</p>
 								);
@@ -75,12 +77,14 @@ const PokemonDetail = ({ pokemon }) => {
 								return (
 									<div
 										key={s.name}
-										className="flex flex-col justify-center gap-2 rounded-xl bg-gray-100">
+										className="flex flex-col justify-center gap-2 rounded-xl bg-gray-100"
+									>
 										<p
 											className="rounded-full p-2 text-xs font-bold text-white"
 											style={{
 												backgroundColor: `${statColor[s.name].color}`
-											}}>
+											}}
+										>
 											{statColor[s.name].name}
 										</p>
 										<p className="text-xs font-semibold text-gray-600">
@@ -94,7 +98,8 @@ const PokemonDetail = ({ pokemon }) => {
 					<div className="mt-2">
 						<button
 							onClick={handleAdoption}
-							className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:scale-110 hover:animate-spin hover:shadow-2xl">
+							className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:scale-110 hover:animate-spin hover:shadow-2xl"
+						>
 							Adopt Me
 						</button>
 					</div>

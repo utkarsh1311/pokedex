@@ -69,7 +69,8 @@ const Register = () => {
 						<div className="flex flex-col">
 							<label
 								className="text-lg font-semibold text-gray-700"
-								htmlFor="username">
+								htmlFor="username"
+							>
 								Username
 							</label>
 							<input
@@ -93,7 +94,8 @@ const Register = () => {
 						<div className="flex flex-col">
 							<label
 								className="text-lg font-semibold text-gray-700"
-								htmlFor="email">
+								htmlFor="email"
+							>
 								Email
 							</label>
 							<input
@@ -114,7 +116,8 @@ const Register = () => {
 						<div className="flex flex-col">
 							<label
 								className="text-lg font-semibold text-gray-700"
-								htmlFor="password">
+								htmlFor="password"
+							>
 								Password
 							</label>
 							<input
@@ -135,7 +138,8 @@ const Register = () => {
 						<div className="flex flex-col">
 							<label
 								className="text-lg font-semibold text-gray-700"
-								htmlFor="password">
+								htmlFor="password"
+							>
 								Confirm Password
 							</label>
 							<input
@@ -157,7 +161,8 @@ const Register = () => {
 							<button
 								onClick={handleSubmit(onSubmit)}
 								className=" w-full rounded-lg bg-blue-500 px-6 py-2 text-lg text-white"
-								type="submit">
+								type="submit"
+							>
 								Register
 							</button>
 						</div>
@@ -166,7 +171,8 @@ const Register = () => {
 						Already have an account? Login
 						<Link
 							to="/login"
-							className="text-blue-500 hover:cursor-pointer hover:font-bold hover:text-blue-700">
+							className="text-blue-500 hover:cursor-pointer hover:font-bold hover:text-blue-700"
+						>
 							{' '}
 							here
 						</Link>

@@ -62,7 +62,8 @@ const login = async (req, res) => {
 
 const adoptPokemon = async (req, res) => {
   const { username } = req.user;
-  const { pokemonID } = req.body;
+  const pokemonID = req.params.id;
+  console.log(pokemonID);
 
   try {
     const user = await User.findOne({ username });
@@ -92,13 +93,14 @@ const adoptPokemon = async (req, res) => {
     await user.save();
     res.status(200).json({ message: `${pokemon.name} adopted successfully` });
   } catch (error) {
-    return res.status(500).json({ error: "error adopting pokemon" });
+    res.status(500).json({ error: "error adopting pokemon" });
   }
 };
 
 const unadoptPokemon = async (req, res) => {
   const { username } = req.user;
-  const { pokemonID } = req.body;
+  const pokemonID = req.params.id;
+  console.log("pokemonID", pokemonID);
 
   try {
     const user = await User.findOne({ username });
@@ -120,7 +122,7 @@ const unadoptPokemon = async (req, res) => {
     res.status(200).json({ message: `pokemon unadopted successfully` });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ error: "error unadopting pokemon" });
+    res.status(500).json({ error: "error unadopting pokemon" });
   }
 };
 

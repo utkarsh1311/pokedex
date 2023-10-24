@@ -4,7 +4,6 @@ import pikachu from '../assets/pikachu.png';
 import UserContext from '../context/userContext';
 import { useOutletContext } from 'react-router-dom';
 const Landing = () => {
-	
 	const [user] = useContext(UserContext);
 	return (
 		<div className="relative col-span-6 flex w-full items-center text-gray-600 md:flex-col sm:mt-10">

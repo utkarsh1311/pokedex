@@ -1,5 +1,4 @@
 import React from 'react';
-import pokedex from '../assets/adopted.png';
 import { colors } from '../constants';
 
 const PokemonCard = ({ handleClick, pokemon }) => {
@@ -10,10 +9,11 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 					<div
 						id={`${pokemon.id}`}
 						onClick={handleClick}
-						className=" absolute z-10 min-h-full min-w-full "></div>
+						className=" absolute z-10 min-h-full min-w-full "
+					></div>
 					<div className="">
 						<img
-							style={{ 
+							style={{
 								filter: `drop-shadow(0px 8px 2px rgb(152,152,152))`
 							}}
 							className="absolute bottom-24 left-1/2 aspect-square max-h-16 -translate-x-1/2 transform duration-150 group-hover:scale-125"
@@ -33,7 +33,8 @@ const PokemonCard = ({ handleClick, pokemon }) => {
 									className="rounded-md px-2 py-1 text-xs font-bold text-white"
 									style={{
 										backgroundColor: `${colors[t]} `
-									}}>
+									}}
+								>
 									{t}
 								</p>
 							))}

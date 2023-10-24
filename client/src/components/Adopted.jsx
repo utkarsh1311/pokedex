@@ -40,7 +40,8 @@ const Adopted = () => {
 					adoptedPokemons.map((pokemon) => (
 						<div
 							key={pokemon.id}
-							className="flex flex-col items-center rounded-md bg-white p-4 shadow-lg sm:col-span-3">
+							className="flex flex-col items-center rounded-md bg-white p-4 shadow-lg sm:col-span-3"
+						>
 							<div className="w-1/4">
 								<img
 									style={{
@@ -60,7 +61,8 @@ const Adopted = () => {
 											className="rounded-md px-2 py-1 text-xs font-bold text-white"
 											style={{
 												backgroundColor: `${colors[type]} `
-											}}>
+											}}
+										>
 											{type}
 										</p>
 									))}
@@ -78,7 +80,8 @@ const Adopted = () => {
 									<button
 										id={pokemon.id}
 										onClick={handleUnadoption}
-										className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110">
+										className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110"
+									>
 										Unadopt me
 									</button>
 								</div>
@@ -88,11 +91,13 @@ const Adopted = () => {
 				) : (
 					<div className="col-span-3 grid h-full place-content-center ">
 						<img
-							className="w-1/2 mx-auto drop-shadow-xl"
+							className="mx-auto w-1/2 drop-shadow-xl"
 							src={snorlax}
 							alt="snorlax"
 						/>
-						<p className='text-center  text-3xl mt-8'>You have not adopted any pokemons. 😢😢</p>
+						<p className="mt-8  text-center text-3xl">
+							You have not adopted any pokemons. 😢😢
+						</p>
 					</div>
 				)}
 			</div>

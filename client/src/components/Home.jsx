@@ -1,10 +1,8 @@
-import Navbar from './Navbar';
 import bg from '../assets/2.svg';
+import Navbar from './Navbar';
 
-import { Outlet } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import UserContext from '../context/userContext';
 import Toast from './Toast';
 

@@ -31,11 +31,13 @@ const Navbar = () => {
 				<ul
 					className={`flex gap-10 overflow-hidden sm:flex-col sm:justify-around sm:gap-2 ${
 						toggle ? 'sm:max-h-96' : ' sm:max-h-0'
-					} items-center transition-all duration-500 ease-in`}>
+					} items-center transition-all duration-500 ease-in`}
+				>
 					<li onClick={() => setToggle(!toggle)}>
 						<Link
 							to={'/'}
-							className="flex items-center gap-2 sm:mt-4">
+							className="flex items-center gap-2 sm:mt-4"
+						>
 							<img
 								className="w-10
 									sm:hidden"
@@ -48,7 +50,8 @@ const Navbar = () => {
 					<li onClick={() => setToggle(!toggle)}>
 						<Link
 							to={'/pokedex'}
-							className="flex items-center gap-2 ">
+							className="flex items-center gap-2 "
+						>
 							<img
 								src={pokedex}
 								alt=""
@@ -60,7 +63,8 @@ const Navbar = () => {
 					<li onClick={() => setToggle(!toggle)}>
 						<Link
 							to={'/adopted'}
-							className="flex items-center gap-2 ">
+							className="flex items-center gap-2 "
+						>
 							<img
 								className=" w-12 sm:hidden"
 								src={adopted}
@@ -73,7 +77,8 @@ const Navbar = () => {
 						<li className=" ml-auto pr-2 sm:m-0 sm:w-full ">
 							<button
 								onClick={handleLogOut}
-								className="rounded-md border-2 px-4 py-2 font-bold transition-all duration-150 hover:scale-110 hover:bg-gray-700 hover:text-white sm:w-full  ">
+								className="rounded-md border-2 px-4 py-2 font-bold transition-all duration-150 hover:scale-110 hover:bg-gray-700 hover:text-white sm:w-full  "
+							>
 								Log out
 							</button>
 						</li>

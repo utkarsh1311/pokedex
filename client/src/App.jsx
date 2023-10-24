@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import Pokedex from './components/Pokedex';
 import Landing from './components/Landing';
@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 const App = () => {
 	const [user, setUser] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('user'));
@@ -26,7 +27,8 @@ const App = () => {
 				<Routes>
 					<Route
 						path="/"
-						element={<Home />}>
+						element={<Home />}
+					>
 						<Route
 							index
 							element={<Landing />}
