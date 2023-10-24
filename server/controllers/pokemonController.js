@@ -1,7 +1,8 @@
 const axios = require("axios");
 const { createPokemonData } = require("../utils/helper");
+const ErrorHandler = require("../utils/customError");
 
-const getAllPokemons = async (req, res) => {
+const getAllPokemons = async (req, res, next) => {
 	const offset = req.query.offset;
 	try {
 		const pokemonData = await axios.get(
@@ -15,7 +16,7 @@ const getAllPokemons = async (req, res) => {
 		const finalList = pokeList.map((p) => createPokemonData(p));
 		res.status(200).json(finalList);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		return next(new ErrorHandler("Error fetching all pokemons", 500));
 	}
 };
 
@@ -29,7 +30,7 @@ const getPokemonByName = async (req, res) => {
 		const finalData = createPokemonData(pokemonData.data);
 		res.status(200).json(finalData);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		return next(new ErrorHandler("Error fetching pokemon", 500));
 	}
 };
 

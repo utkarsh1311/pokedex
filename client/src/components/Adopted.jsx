@@ -28,7 +28,7 @@ const Adopted = () => {
 			);
 			setAdoptedPokemons((prev) => [...newAdoptedPokemons]);
 		} catch (e) {
-			toast.error(e.response.data.error);
+			toast.error(e.response.data.message);
 		}
 	};
 
@@ -45,7 +45,7 @@ const Adopted = () => {
 			const res = await feedPokemon(pokemonId);
 			toast.success(res.message);
 		} catch (e) {
-			toast.error(e.response.data.error);
+			toast.error(e.response.data.message);
 		}
 	}
 

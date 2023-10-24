@@ -9,7 +9,7 @@ const userRouter = require("./routes/userRouter");
 const mongoose = require("mongoose");
 const { protect } = require("./utils/auth");
 const { createNewUser, login, getAllUsers } = require("./controllers/userController");
-const { default: errorHandler } = require("./middlewares/errorHandler");
+const errorHandler = require("./middlewares/errorHandler");
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
@@ -29,7 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 axios.defaults.timeout = 10000;
 
-app.get("/users", getAllUsers);
 app.use("/pokemons", protect, pokemonRouter);
 app.use("/user", protect, userRouter);
 app.post("/register", createNewUser);

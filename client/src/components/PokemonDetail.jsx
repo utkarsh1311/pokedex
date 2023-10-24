@@ -3,12 +3,13 @@ import { adoptPokemon } from '../api/api';
 import { colors, statColor } from '../constants';
 
 const PokemonDetail = ({ pokemon }) => {
+
 	const handleAdoption = async () => {
 		try {
 			const res = await adoptPokemon(pokemon.id);
 			toast.success(res.message);
 		} catch (e) {
-			toast.error(e.response.data.error);
+			toast.error(e.response.data.message);
 		}
 	};
 	return (

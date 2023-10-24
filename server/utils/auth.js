@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("./config");
 const bcrypt = require("bcrypt");
+const ErrorHandler = require("./customError");
+
 
 const createJWT = (user) => {
   const token = jwt.sign(
@@ -11,18 +13,18 @@ const createJWT = (user) => {
   return token;
 };
 
+
 const protect = (req, res, next) => {
   const bearer = req.headers.authorization;
-  console.log("here")
 
   if (!bearer || !bearer.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "no token provided" });
+    return next(new ErrorHandler("No token provided", 400));
   }
 
   const [, token] = bearer.split(" ");
 
   if (!token) {
-    return res.status(401).json({ message: "no token provided" });
+    return next(new ErrorHandler("No token provided", 400));
   }
 
   try {

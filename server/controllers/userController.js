@@ -1,15 +1,17 @@
 const User = require("../models/user");
 const axios = require("axios");
-
+const ErrorHandler = require("../utils/customError");
 const { hashPassword, createJWT, comparePasswords } = require("../utils/auth");
 const { createPokemonData } = require("../utils/helper");
 
-const createNewUser = async (req, res) => {
+
+const createNewUser = async (req, res, next) => {
   const { email, username, password } = req.body;
   try {
     const existingUser = await User.findOne({ username });
+
     if (existingUser) {
-      return res.status(401).json({ error: "User already exists" });
+      return next(new ErrorHandler("User already exists", 400));
     }
     const user = new User({
       username,
@@ -22,15 +24,15 @@ const createNewUser = async (req, res) => {
     const token = createJWT(savedUser);
     res.status(201).json({ token });
   } catch (error) {
-    res.status(500).json({ error: "error creating user" });
+    return next(new ErrorHandler("Error creating user", 500));
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ error: "username and password required" });
+    return next(new ErrorHandler("Username or Password not provided", 400));
   }
 
   try {
@@ -39,8 +41,9 @@ const login = async (req, res) => {
       user === null
         ? false
         : await comparePasswords(password, user.passwordHash);
-    if (!(user && passwordIsCorrect)) {
-      return res.status(401).json({ error: "invalid username or password" });
+    
+    if (!user || !passwordIsCorrect) {
+      return next(new ErrorHandler("Invalid username or password", 401));
     }
 
     const userForToken = {
@@ -56,11 +59,11 @@ const login = async (req, res) => {
       email: user.email,
     });
   } catch (error) {
-    res.status(500).json({ error: "error logging in" });
+    return next(new ErrorHandler("Error logging in", 500)); 
   }
 };
 
-const adoptPokemon = async (req, res) => {
+const adoptPokemon = async (req, res, next) => {
   const { username } = req.user;
   const pokemonID = req.params.id;
   console.log(pokemonID);
@@ -69,11 +72,11 @@ const adoptPokemon = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(404).json({ error: "not authorized " });
+      return next(new ErrorHandler("Not Authorized", 401));
     }
 
     if (user.adoptedPokemons.length >= 9) {
-      return res.status(400).json({ error: "max adoption limit reached" });
+      return next(new ErrorHandler("Maximum number of pokemons adopted reached", 403));
     }
 
     const fetchPokemon = await axios.get(
@@ -85,7 +88,7 @@ const adoptPokemon = async (req, res) => {
       .includes(fetchPokemon.data.id);
 
     if (isPokemonAdopted) {
-      return res.status(500).json({ error: "Pokemon already adopted" });
+      return next(new ErrorHandler("Pokemon already adopted", 403));
     }
 
     const pokemon = createPokemonData(fetchPokemon.data);
@@ -93,26 +96,26 @@ const adoptPokemon = async (req, res) => {
     await user.save();
     res.status(200).json({ message: `${pokemon.name} adopted successfully` });
   } catch (error) {
-    res.status(500).json({ error: "error adopting pokemon" });
+    console.log(error);
+    return next(new ErrorHandler("Error adopting pokemon", 500));
   }
 };
 
-const unadoptPokemon = async (req, res) => {
+const unadoptPokemon = async (req, res,next) => {
   const { username } = req.user;
   const pokemonID = req.params.id;
-  console.log("pokemonID", pokemonID);
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(404).json({ error: "not authorized" });
+      return next(new ErrorHandler("Not Authorized", 401));
     }
 
     if (!pokemonID) {
-      return res.status(401).json({ error: "pokemon id not provided " });
+      return next(new ErrorHandler("Pokemon ID not provided", 400));
     }
     if (!user.adoptedPokemons.map((p) => p.id).includes(+pokemonID)) {
-      return res.status(500).json({ error: "Pokemon not adopted" });
+      return next(new ErrorHandler("Pokemon not adopted", 404));
     }
     user.adoptedPokemons = user.adoptedPokemons.filter(
       (p) => p.id !== +pokemonID
@@ -121,71 +124,62 @@ const unadoptPokemon = async (req, res) => {
     await user.save();
     res.status(200).json({ message: `pokemon unadopted successfully` });
   } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: "error unadopting pokemon" });
+    return next(new ErrorHandler("Error unadopting pokemon", 500));
   }
 };
 
-const getAllAdoptedPokemons = async (req, res) => {
+const getAllAdoptedPokemons = async (req, res, next) => {
   const { username } = req.user;
   if (!username) {
-    return res.status(401).json({ error: "username not provided" });
+    return next(new ErrorHandler("Username not provided", 400));
   }
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(401).json({ error: "not authorized" });
+      return next(new ErrorHandler("Not Authorized", 401));
     }
     const adoptedPokemons = user.adoptedPokemons;
     res.status(200).json({ adoptedPokemons });
   } catch (e) {
-    res.status(500).json({ error: "error getting adopted pokemons" });
+    return next(new ErrorHandler("Error getting adopted pokemons", 500));
   }
 };
 
-const feedPokemon = async (req, res) => {
+const feedPokemon = async (req, res, next) => {
   const { username } = req.user;
   const pokemonID = +req.params.id;
 
   if (!username) {
-    return res.status(401).json({ error: "username not provided" });
+    return next(new ErrorHandler("Username not provided", 400));
   }
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(401).json({ error: "not authorized" });
+      return next(new ErrorHandler("Not Authorized", 401));
     }
     const pokemonToFeed = user.adoptedPokemons.find(
       (p) => p.id === pokemonID
     );
     if (!pokemonToFeed) {
-      return res.status(404).json({ error: "pokemon not found" });
+      return next(new ErrorHandler("Pokemon not adopted", 404));
     }
-    if (pokemonToFeed.health <= 90) {
-      pokemonToFeed.health += 10;
-    } else {
-      return res.status(400).json({ error: "pokemon health already full"})
-    }
+    if (pokemonToFeed.health > 90) {
+      return next(new ErrorHandler("Pokemon already full", 400));
+    } 
+    pokemonToFeed.health += 10;
     user.markModified('adoptedPokemons');
     await user.save();
     res.status(200).json({ message: "pokemon fed successfully" });
 
   } catch (e) {
-    res.status(500).json({ error: "error feeding pokemon" });
+    return next(new ErrorHandler("Error feeding pokemon", 500));
   }
 }
-
-
-const getAllUsers = async (req, res) => {
-  const users = await User.find({});
-  res.json(users);
-};
 
 module.exports = {
   createNewUser,
   login,
-  getAllUsers,
   adoptPokemon,
   unadoptPokemon,
   getAllAdoptedPokemons,
