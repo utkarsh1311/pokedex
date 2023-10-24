@@ -1,4 +1,4 @@
-const formatPokemonData = (pokemon) => {
+const createPokemonData = (pokemon) => {
 	return {
 		id: pokemon.id,
 		name: pokemon.name,
@@ -18,7 +18,8 @@ const formatPokemonData = (pokemon) => {
 				value: s.base_stat,
 			};
 		}),
+		health: 100
 	};
 };
 
-module.exports = { formatPokemonData };
+module.exports = { createPokemonData };

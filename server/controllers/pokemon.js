@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { formatPokemonData } = require("../utils/helper");
+const { createPokemonData } = require("../utils/helper");
 
 const getAllPokemons = async (req, res) => {
 	const offset = req.query.offset;
@@ -12,7 +12,7 @@ const getAllPokemons = async (req, res) => {
 			return a.data;
 		});
 		const pokeList = await Promise.all(pArr);
-		const finalList = pokeList.map((p) => formatPokemonData(p));
+		const finalList = pokeList.map((p) => createPokemonData(p));
 		res.status(200).json(finalList);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -26,7 +26,7 @@ const getPokemonByName = async (req, res) => {
 		const pokemonData = await axios.get(
 			`https://pokeapi.co/api/v2/pokemon/${name}`
 		);
-		const finalData = formatPokemonData(pokemonData.data);
+		const finalData = createPokemonData(pokemonData.data);
 		res.status(200).json(finalData);
 	} catch (error) {
 		res.status(500).json({ error: error.message });

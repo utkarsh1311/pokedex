@@ -2,7 +2,7 @@ const User = require("../models/user");
 const axios = require("axios");
 
 const { hashPassword, createJWT, comparePasswords } = require("../utils/auth");
-const { formatPokemonData } = require("../utils/helper");
+const { createPokemonData } = require("../utils/helper");
 
 const createNewUser = async (req, res) => {
   const { email, username, password } = req.body;
@@ -88,7 +88,7 @@ const adoptPokemon = async (req, res) => {
       return res.status(500).json({ error: "Pokemon already adopted" });
     }
 
-    const pokemon = formatPokemonData(fetchPokemon.data);
+    const pokemon = createPokemonData(fetchPokemon.data);
     user.adoptedPokemons.push(pokemon);
     await user.save();
     res.status(200).json({ message: `${pokemon.name} adopted successfully` });
