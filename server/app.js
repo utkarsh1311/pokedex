@@ -9,6 +9,7 @@ const userRouter = require("./routes/userRouter");
 const mongoose = require("mongoose");
 const { protect } = require("./utils/auth");
 const { createNewUser, login, getAllUsers } = require("./controllers/userController");
+const { default: errorHandler } = require("./middlewares/errorHandler");
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
@@ -34,4 +35,5 @@ app.use("/user", protect, userRouter);
 app.post("/register", createNewUser);
 app.post("/login", login);
 
+app.use(errorHandler)
 module.exports = app;
