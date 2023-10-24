@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { getAllAdoptedPokemons, unadoptPokemon } from '../api/api';
+import { getAllAdoptedPokemons, unadoptPokemon, feedPokemon } from '../api/api';
 import snorlax from '../assets/snorlax.png';
 import { colors } from '../constants';
 import UserContext from '../context/userContext';
@@ -19,7 +19,7 @@ const Adopted = () => {
 	}, []);
 
 	const handleUnadoption = async (e) => {
-		const pokemonId = e.target.id;
+		const pokemonId = e.target.dataset.id;
 		try {
 			const res = await unadoptPokemon(pokemonId);
 			toast.success(res.message);
@@ -28,10 +28,28 @@ const Adopted = () => {
 			);
 			setAdoptedPokemons((prev) => [...newAdoptedPokemons]);
 		} catch (e) {
-			console.log(e);
 			toast.error(e.response.data.error);
 		}
 	};
+
+	const handleFeedPokemon = async (e) => {
+		const pokemonId = e.target.dataset.id;
+		try {
+			const updatedPokemon = adoptedPokemons.find(
+				(pokemon) => pokemon.id === +pokemonId
+			);
+			updatedPokemon.health += 10;
+			if (updatedPokemon.health > 100) updatedPokemon.health = 100;
+			setAdoptedPokemons((prev) => [...adoptedPokemons]);
+			
+			const res = await feedPokemon(pokemonId);
+			toast.success(res.message);
+		} catch (e) {
+			toast.error(e.response.data.error);
+		}
+	}
+
+	
 	return (
 		<div className="relative col-span-6 text-gray-600">
 			<h2 className="text-4xl font-bold">Here are your pokemons...</h2>
@@ -68,17 +86,17 @@ const Adopted = () => {
 									))}
 								</div>
 								<div className="m-3 w-full">
-									<p className=" ">HP 40/100</p>
+									<p className=" ">HP {pokemon.health}/100</p>
 									<div className="h-2 w-full rounded-full bg-gray-200">
-										<div className="h-2 w-1/2 rounded-full bg-green-700"></div>
+										<div style={{ width: `${pokemon.health}%` }} className={`h-2 rounded-full bg-green-700`}></div>
 									</div>
 								</div>
 								<div className="flex gap-4">
-									<button className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110">
+									<button data-id={pokemon.id} onClick={handleFeedPokemon} className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110">
 										Feed Me
 									</button>
 									<button
-										id={pokemon.id}
+										data-id={pokemon.id}
 										onClick={handleUnadoption}
 										className="rounded-lg  bg-blue-600 px-4 py-2 text-xs text-white duration-150 hover:scale-110"
 									>

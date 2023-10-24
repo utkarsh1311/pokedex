@@ -143,6 +143,40 @@ const getAllAdoptedPokemons = async (req, res) => {
   }
 };
 
+const feedPokemon = async (req, res) => {
+  const { username } = req.user;
+  const pokemonID = +req.params.id;
+
+  if (!username) {
+    return res.status(401).json({ error: "username not provided" });
+  }
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ error: "not authorized" });
+    }
+    const pokemonToFeed = user.adoptedPokemons.find(
+      (p) => p.id === pokemonID
+    );
+    if (!pokemonToFeed) {
+      return res.status(404).json({ error: "pokemon not found" });
+    }
+    if (pokemonToFeed.health <= 90) {
+      pokemonToFeed.health += 10;
+    } else {
+      return res.status(400).json({ error: "pokemon health already full"})
+    }
+    user.markModified('adoptedPokemons');
+    await user.save();
+    res.status(200).json({ message: "pokemon fed successfully" });
+
+  } catch (e) {
+    res.status(500).json({ error: "error feeding pokemon" });
+  }
+}
+
+
 const getAllUsers = async (req, res) => {
   const users = await User.find({});
   res.json(users);
@@ -155,4 +189,5 @@ module.exports = {
   adoptPokemon,
   unadoptPokemon,
   getAllAdoptedPokemons,
+  feedPokemon,
 };

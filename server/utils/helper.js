@@ -18,7 +18,7 @@ const createPokemonData = (pokemon) => {
 				value: s.base_stat,
 			};
 		}),
-		health: 100
+		health: 0
 	};
 };
 

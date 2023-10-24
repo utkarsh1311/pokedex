@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  adoptedPokemons: [],
+  adoptedPokemons: [Object],
 });
 
 userSchema.set("toJSON", {

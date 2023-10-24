@@ -8,7 +8,7 @@ const pokemonRouter = require("./routes/pokemonRouter");
 const userRouter = require("./routes/userRouter");
 const mongoose = require("mongoose");
 const { protect } = require("./utils/auth");
-const { createNewUser, login, getAllUsers } = require("./controllers/user");
+const { createNewUser, login, getAllUsers } = require("./controllers/userController");
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,

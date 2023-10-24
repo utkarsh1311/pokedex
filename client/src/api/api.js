@@ -41,3 +41,8 @@ export const unadoptPokemon = async (id) => {
 	});
 	return res.data;
 };
+
+export const feedPokemon = async (id) => {
+	const res = await api.patch(`/user/pokemons/${id}`, {}, config);
+	return res.data;
+}
