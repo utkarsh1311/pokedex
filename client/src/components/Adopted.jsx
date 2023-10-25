@@ -46,7 +46,7 @@ const Adopted = () => {
 			toast.success(res.message);
 		} catch (e) {
 			toast.error(e.response.data.message);
-		}
+		} 
 	}
 
 	

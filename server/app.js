@@ -10,8 +10,9 @@ const mongoose = require("mongoose");
 const { protect } = require("./utils/auth");
 const { createNewUser, login, getAllUsers } = require("./controllers/userController");
 const errorHandler = require("./middlewares/errorHandler");
-const catchAsyncError = require("./middlewares/catchAsyncError");
 require("express-async-errors");
+const cron = require('node-cron');
+const decreasePokemonHealthForAllUsers = require("./utils/decreasePokemonHealth");
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
@@ -35,6 +36,12 @@ app.use("/pokemons", protect, pokemonRouter);
 app.use("/user", protect, userRouter);
 app.post("/register", createNewUser);
 app.post("/login", login);
+
+
+cron.schedule('0 */2.4 * * *', () => {
+  console.log('Decreasing pokemon health for all users');
+  decreasePokemonHealthForAllUsers();
+});
 
 app.use(errorHandler)
 module.exports = app;

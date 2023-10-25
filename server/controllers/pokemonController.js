@@ -1,7 +1,6 @@
 const axios = require("axios");
 const { createPokemonData } = require("../utils/helper");
-const ErrorHandler = require("../utils/customError");
-const catchAsyncError = require("../middlewares/catchAsyncError");
+
 
 
 const getAllPokemons = async (req, res, next) => {
@@ -28,6 +27,7 @@ const getPokemonByName = async (req, res) => {
 		const finalData = createPokemonData(pokemonData.data);
 		res.status(200).json(finalData);
 };
+
 
 
 module.exports = { getAllPokemons, getPokemonByName };
