@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 const { protect } = require("./utils/auth");
 const { createNewUser, login, getAllUsers } = require("./controllers/userController");
 const errorHandler = require("./middlewares/errorHandler");
+const catchAsyncError = require("./middlewares/catchAsyncError");
+require("express-async-errors");
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
