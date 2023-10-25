@@ -23,7 +23,7 @@ const Login = () => {
 		const { username, password } = data;
 
 		try {
-			const registerdUser = await axios.post('http://localhost:3000/login', {
+			const registerdUser = await axios.post(`${import.meta.env.VITE_BASE_URI}/login`, {
 				username,
 				password
 			});
