@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URI;
 let token = null;
 if (localStorage.getItem('user')) {
 	token = JSON.parse(localStorage.getItem('user')).token;
