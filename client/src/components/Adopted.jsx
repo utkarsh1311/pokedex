@@ -87,8 +87,8 @@ const Adopted = () => {
 								</div>
 								<div className="m-3 w-full">
 									<p className=" ">HP {pokemon.health}/100</p>
-									<div className="h-2 w-full rounded-full bg-gray-200">
-										<div style={{ width: `${pokemon.health}%` }} className={`h-2 rounded-full bg-green-700`}></div>
+									<div className="h-2 w-full rounded-full bg-gray-200 shadow-inner">
+										<div style={{ width: `${pokemon.health}%` }} className={`h-2 rounded-full bg-green-700 transition-all duration-500`}></div>
 									</div>
 								</div>
 								<div className="flex gap-4">
