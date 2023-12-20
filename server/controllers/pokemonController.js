@@ -1,10 +1,20 @@
 const axios = require("axios");
 const { createPokemonData } = require("../utils/helper");
+const redisClient = require("../utils/redis");
 
 
 
 const getAllPokemons = async (req, res, next) => {
 	const offset = req.query.offset;
+
+	const cachedPokemons = await redisClient.get(`pokemons-${offset}`);
+	if (cachedPokemons) {
+		console.log('serving from cache');
+		console.log(JSON.parse(cachedPokemons));
+		return res.status(200).json(JSON.parse(cachedPokemons));
+	}
+	
+
 	const pokemonData = await axios.get(
 		`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=9`
 	);
@@ -14,6 +24,9 @@ const getAllPokemons = async (req, res, next) => {
 	});
 	const pokeList = await Promise.all(pArr);
 	const finalList = pokeList.map((p) => createPokemonData(p));
+
+	await redisClient.set(`pokemons-${offset}`, JSON.stringify(finalList), 'EX', 60 * 60);
+
 	res.status(200).json(finalList);
 	
 };
