@@ -9,8 +9,6 @@ const getAllPokemons = async (req, res, next) => {
 
 	const cachedPokemons = await redisClient.get(`pokemons-${offset}`);
 	if (cachedPokemons) {
-		console.log('serving from cache');
-		console.log(JSON.parse(cachedPokemons));
 		return res.status(200).json(JSON.parse(cachedPokemons));
 	}
 	
