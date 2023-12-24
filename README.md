@@ -13,7 +13,6 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.3.3-38B2AC.svg)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-brightgreen.svg)
 ![Render](https://img.shields.io/badge/Render-Deployed-brightgreen.svg)
-[![App Link](https://img.shields.io/badge/App-Link-blue.svg)](YOUR_APP_LINK)
 
 </div>
 
