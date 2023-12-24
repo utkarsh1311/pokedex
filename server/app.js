@@ -32,6 +32,10 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Hello from Pokedex server");
+});
+
 app.use("/pokemons",protect, pokemonRouter);
 app.use("/user", protect, userRouter);
 app.post("/register", createNewUser);
