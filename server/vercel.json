@@ -13,11 +13,11 @@
     }
   ],
   "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "JWT_SECRET": "@jwt_secret",
-    "CRON_SECRET": "@cron_secret",
-    "REDIS_HOST": "@redis_host",
-    "REDIS_PORT": "@redis_port",
-    "REDIS_PASSWORD": "@redis_password"
+    "MONGODB_URI": "@MONGODB_URI",
+    "JWT_SECRET": "@JWT_SECRET",
+    "CRON_SECRET": "@CRON_SECRET",
+    "REDIS_HOST": "@REDIS_HOST",
+    "REDIS_PORT": "@REDIS_PORT",
+    "REDIS_PASSWORD": "@REDIS_PASSWORD"
   }
 }
