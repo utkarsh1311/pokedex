@@ -2,7 +2,11 @@
 const redis = require('ioredis');
 const config = require('./config');
 
-const redisClient = new redis(config.REDIS_URL);
+const redisClient = new redis({
+    port: config.REDIS_PORT,
+    host: config.REDIS_HOST,
+    password: config.REDIS_PASSWORD,
+});
 
 redisClient.on('connect',() => {
     console.log('connected to redis successfully!');

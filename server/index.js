@@ -1,10 +1,7 @@
 const app = require("./app");
-const http = require("http");
 
-const PORT = process.env.PORT || 3000;
-const server = http.createServer(app);
-
-
-server.listen(PORT, () => {
-  console.log("App running on port 3000");
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`App running on port ${process.env.PORT || 3000}`);
 });
+
+module.exports = app;
