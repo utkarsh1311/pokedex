@@ -1,0 +1,27 @@
+# .github/workflows/decrease-pokemon-health.yml
+name: Decrease Pokemon Health
+
+on:
+  schedule:
+    # Runs every 2 hours
+    - cron: '0 */2 * * *'
+  # Optional: Allow manual trigger from GitHub UI
+  workflow_dispatch:
+
+jobs:
+  decrease-health:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger health decrease endpoint
+        run: |
+          curl -X POST \
+          -H "X-CRON-SECRET: ${{ secrets.CRON_SECRET }}" \
+          ${{ secrets.POKEDEX_BACKEND_URI }}/api/cron/decrease-health
+      
+      # Optional: Add error handling and logging
+      - name: Check response
+        if: ${{ failure() }}
+        run: |
+          echo "Failed to decrease Pokemon health"
+          echo "Time: $(date)"
