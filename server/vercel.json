@@ -11,13 +11,5 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "@MONGODB_URI",
-    "JWT_SECRET": "@JWT_SECRET",
-    "CRON_SECRET": "@CRON_SECRET",
-    "REDIS_HOST": "@REDIS_HOST",
-    "REDIS_PORT": "@REDIS_PORT",
-    "REDIS_PASSWORD": "@REDIS_PASSWORD"
-  }
+  ]
 }
