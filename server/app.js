@@ -14,6 +14,7 @@ const errorHandler = require("./middlewares/errorHandler");
 const cron = require('node-cron');
 const decreasePokemonHealthForAllUsers = require("./utils/decreasePokemonHealth");
 const client = require("./utils/redis");
+const { decreasePokemonHealth } = require('./controllers/cronController');
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
@@ -36,10 +37,11 @@ app.get("/", (req, res) => {
   res.send("Hello from Pokedex server");
 });
 
-app.use("/pokemons",protect, pokemonRouter);
+app.use("/pokemons",protect, pokemonRouter); 
 app.use("/user", protect, userRouter);
 app.post("/register", createNewUser);
 app.post("/login", login);
+app.app.post('/api/cron/decrease-health', decreasePokemonHealth);
 
 
 cron.schedule('0 */2.4 * * *', () => {
