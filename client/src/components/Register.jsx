@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import pokemonGroup from '../assets/pokemonGroup.png';
 import bg from '../assets/2.svg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ const Register = () => {
 		reset,
 		formState: { errors }
 	} = useForm();
+	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async (data) => {
 		if (data.password !== data.confirmPassword) {
@@ -25,6 +26,8 @@ const Register = () => {
 
 		const { username, email, password } = data;
 		try {
+		setLoading(true);
+
 			await axios.post(`${import.meta.env.VITE_BASE_URI}/register`, {
 				username,
 				email,
@@ -33,9 +36,13 @@ const Register = () => {
 
 			toast.success('User registered successfully');
 			navigate('/login');
+			reset();
+			setLoading(false);
+
 		} catch (e) {
 			toast.warning(e.response.data.error);
 			reset();
+			setLoading(false);
 		}
 	};
 
@@ -162,8 +169,13 @@ const Register = () => {
 								onClick={handleSubmit(onSubmit)}
 								className=" w-full rounded-lg bg-blue-500 px-6 py-2 text-lg text-white"
 								type="submit"
+								disabled={loading}
 							>
-								Register
+								{
+									loading ? <div className='w-8 h-8 rounded-full mx-auto border-l-2 animate-spin border-white'>
+
+									</div> : 'Register'
+								}
 							</button>
 						</div>
 					</form>
