@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import pokemonGroup from '../assets/pokemonGroup.png';
 import bg from '../assets/2.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import UserContext from '../context/userContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -17,9 +17,11 @@ const Login = () => {
 	} = useForm();
 
 	const [, setUser] = useContext(UserContext);
+	const [loading, setLoading] = React.useState(false);
 	const navigate = useNavigate();
 
 	const login = async (data) => {
+		setLoading(true);
 		const { username, password } = data;
 
 		try {
@@ -28,11 +30,15 @@ const Login = () => {
 				password
 			});
 			setUser(registerdUser.data);
+			setLoading(false);
 			localStorage.setItem('user', JSON.stringify(registerdUser.data));
 			navigate('/');
+
 		} catch (error) {
 			toast.error("Username or password doesn't match");
 			reset();
+			setLoading(false);
+
 		}
 	};
 
@@ -118,8 +124,13 @@ const Login = () => {
 								onClick={handleSubmit(login)}
 								className=" w-full rounded-lg bg-blue-500 px-6 py-2 text-lg text-white"
 								type="submit"
+								disabled={loading}
 							>
-								Login
+								{
+									loading ? <div className='w-8 h-8 rounded-full mx-auto border-l-2 animate-spin border-white'>
+
+									</div> : 'Login'
+								}
 							</button>
 						</div>
 					</form>
