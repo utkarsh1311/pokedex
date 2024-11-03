@@ -1,15 +1,21 @@
 import { toast } from 'react-toastify';
 import { adoptPokemon } from '../api/api';
 import { colors, statColor } from '../constants';
+import { useState } from 'react';
+import { set } from 'react-hook-form';
 
 const PokemonDetail = ({ pokemon }) => {
+	const [loading, setLoading] = useState(false);
 
 	const handleAdoption = async () => {
+		setLoading(true);
 		try {
 			const res = await adoptPokemon(pokemon.id);
 			toast.success(res.message);
+			setLoading(false);
 		} catch (e) {
 			toast.error(e.response.data.message);
+			setLoading(false);
 		}
 	};
 	return (
@@ -100,8 +106,13 @@ const PokemonDetail = ({ pokemon }) => {
 						<button
 							onClick={handleAdoption}
 							className="rounded-lg bg-blue-700 px-6 py-2 text-white hover:scale-110 hover:animate-spin hover:shadow-2xl"
+							disabled={loading}
 						>
-							Adopt Me
+							{
+									loading ? <div className='w-6 h-6 rounded-full mx-auto border-l-2 animate-spin border-white'>
+
+									</div> : 'Adopt'
+								}
 						</button>
 					</div>
 				</div>
